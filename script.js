@@ -1,20 +1,41 @@
-const socket = io();
+const options = ["Unreal", "Unity", "Godot"];
+const optionsDiv = document.getElementById("options");
+const resultsDiv = document.getElementById("results");
 
-socket.on('pollData', (poll) => {
-  document.getElementById('question').textContent = poll.question;
-  const optionsDiv = document.getElementById('options');
-  const resultsDiv = document.getElementById('results');
-  optionsDiv.innerHTML = '';
-  resultsDiv.innerHTML = '';
+// Render buttons
+options.forEach((opt, i) => {
+  const btn = document.createElement("button");
+  btn.textContent = opt;
+  btn.onclick = () => vote(i);
+  optionsDiv.appendChild(btn);
+});
 
-  poll.options.forEach((option, index) => {
-    const btn = document.createElement('button');
-    btn.textContent = option;
-    btn.onclick = () => socket.emit('vote', index);
-    optionsDiv.appendChild(btn);
+// Fetch votes from API
+async function fetchVotes() {
+  const res = await fetch("/api/vote");
+  const data = await res.json();
+  renderResults(data);
+}
 
-    const p = document.createElement('p');
-    p.textContent = `${option}: ${poll.votes[index]} votes`;
+function renderResults(data) {
+  resultsDiv.innerHTML = "";
+  options.forEach((opt, i) => {
+    const count = data.filter(v => v.option_index === i).length;
+    const p = document.createElement("p");
+    p.textContent = `${opt}: ${count} votes`;
     resultsDiv.appendChild(p);
   });
-});
+}
+
+// Submit a vote
+async function vote(index) {
+  await fetch("/api/vote", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ index })
+  });
+  fetchVotes(); // refresh results
+}
+
+// Initial fetch
+fetchVotes();
