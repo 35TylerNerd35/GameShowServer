@@ -37,6 +37,7 @@ function renderResults(data) {
 // Submit a vote
 async function vote(index) {
   const btn = document.createElement("button");
+  btn.textContent = "KILL ME"
   await supabase.from("poll_votes").insert([{ option_index: index }]);
 }
 
