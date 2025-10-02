@@ -1,9 +1,9 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+import { createClient } from '@supabase/supabase-js'
 
-const SUPABASE_URL = "https://izghwhppfuumvzjehfrr.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml6Z2h3aHBwZnV1bXZ6amVoZnJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjA1NDEsImV4cCI6MjA3NDk5NjU0MX0.asynlrUGX3vpvZhVE_Tjjs9537rNdnBsmlNEhic1vOM";
+const supabaseUrl = 'https://izghwhppfuumvzjehfrr.supabase.co'
+const SUPABASE_ANON_KEY = "sb_publishable_OfDnBziyMsBman1rO6HAuQ_5Oe1uBAf";
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = createClient(supabaseUrl, SUPABASE_ANON_KEY);
 
 const options = ["Unreal", "Unity", "Godot"];
 const optionsDiv = document.getElementById("options");
