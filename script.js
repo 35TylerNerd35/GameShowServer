@@ -15,6 +15,7 @@ options.forEach((opt, i) => {
   btn.textContent = opt;
   btn.onclick = () => vote(i);
   optionsDiv.appendChild(btn);
+  console.log("New Button");
 });
 
 // Fetch current votes
@@ -35,6 +36,7 @@ function renderResults(data) {
 
 // Submit a vote
 async function vote(index) {
+  console.log("Press Button");
   await supabase.from("poll_votes").insert([{ option_index: index }]);
 }
 
