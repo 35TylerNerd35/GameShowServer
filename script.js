@@ -1,9 +1,9 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const supabaseUrl = 'https://izghwhppfuumvzjehfrr.supabase.co'
+const SUPABASE_URL = 'https://izghwhppfuumvzjehfrr.supabase.co'
 const SUPABASE_ANON_KEY = "sb_secret_YQixTHwaXJhY2CtpfVEybw_giQjsd3i";
 
-const supabase = createClient(supabaseUrl, SUPABASE_ANON_KEY);
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const options = ["Unreal", "Unity", "Godot"];
 const optionsDiv = document.getElementById("options");
@@ -13,12 +13,12 @@ const resultsDiv = document.getElementById("results");
 options.forEach((opt, i) => {
   const btn = document.createElement("button");
   btn.textContent = opt;
-  btn.onclick = () => vote(i);
+  btn.onclick = async () => {
+    await supabase.from("poll_votes").insert([{ option_index: i }]);
+  };
   optionsDiv.appendChild(btn);
-  console.log("New Button");
 });
 
-// Fetch current votes
 async function fetchVotes() {
   const { data } = await supabase.from("poll_votes").select("*");
   renderResults(data);
@@ -34,21 +34,17 @@ function renderResults(data) {
   });
 }
 
-// Submit a vote
-async function vote(index) {
-  const btn = document.createElement("button");
-  btn.textContent = "KILL ME"
-  resultsDiv.appendChild(btn);
-  await supabase.from("poll_votes").insert([{ option_index: index }]);
-}
-
-// Listen for new votes in realtime
+// Realtime subscription using v2 syntax
 supabase
-  .from("poll_votes")
-  .on("INSERT", payload => {
-    fetchVotes();
-  })
+  .channel('table-db-changes')
+  .on(
+    'postgres_changes',
+    { event: 'INSERT', schema: 'public', table: 'poll_votes' },
+    (payload) => {
+      fetchVotes();
+    }
+  )
   .subscribe();
 
-// Initial load
+// Initial fetch
 fetchVotes();
