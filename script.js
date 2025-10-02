@@ -36,7 +36,7 @@ function renderResults(data) {
 
 // Submit a vote
 async function vote(index) {
-  console.log("Press Button");
+  const btn = document.createElement("button");
   await supabase.from("poll_votes").insert([{ option_index: index }]);
 }
 
