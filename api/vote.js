@@ -1,9 +1,9 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+const SUPABASE_URL = 'https://izghwhppfuumvzjehfrr.supabase.co'
+const SUPABASE_ANON_KEY = "sb_publishable_OfDnBziyMsBman1rO6HAuQ_5Oe1uBAf";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -11,6 +11,7 @@ export default async function handler(req, res) {
     await supabase.from("poll_votes").insert([{ option_index: index }]);
   }
 
+  // GET request returns all votes
   const { data } = await supabase.from("poll_votes").select("*");
   res.status(200).json(data);
 }
