@@ -15,11 +15,6 @@ const optionsDiv = document.getElementById("options");
 const resultsDiv = document.getElementById("results");
 
 async function SetupButtons() {
-    // Clear table
-    const { error } = await supabase.from(tableName).delete();
-    LogHeader("Clear Table");
-    console.log(error);
-
     for (const optionName of tstOptions) {
 
         // Create button
@@ -44,17 +39,27 @@ async function AddVote(btn) {
     const optionName = btnMap.get(btn);
     const votes = await GetOptionVotes(optionName);
 
+    // Update database
     const {data, error} = await supabase.from(tableName).select('option_id').eq('option_name', optionName);
-    LogHeader("Get Option ID");
-    console.log(data);
-    console.log(error);
-
     await supabase.from(tableName).update({ votes : votes + 1}).eq('option_id', data[0].option_id);
 }
 
 async function GetOptionVotes(optionName) {
     const { data, error } = await supabase.from(tableName).select('votes').eq('option_name', optionName);
     return data[0].votes;
+}
+
+async function DisplayVotes() {
+    for (const [btn, optionName] of btnMap) {
+        LogHeader("Button Map");
+        console.log(btn);
+        console.log(optionName);
+
+        LogHeader("Display")
+        const votes = await GetOptionVotes(optionName);
+        console.log(votes);
+        btn.innerText = optionName + ": " + votes;
+    }
 }
 
 function LogHeader(title) {
