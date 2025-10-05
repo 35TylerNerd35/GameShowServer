@@ -38,15 +38,19 @@ async function fetchVotes() {
   // const { data } = await supabase.from(table).select("*");
   // renderResults(data);
 
-  options.forEach((opt, i) = async() => {
-    // Grab current number of votes from button
-    const buttonID = buttons.get(btn);
-    const {data : returnedVotes, error : err} = await supabase.from(table).select("votes").eq("option_id",  buttonID);
-
-    const p = document.createElement("p");
-    p.textContent = `${opt}: ${returnedVotes.votes} votes`;
-    resultsDiv.appendChild(p);
+  buttons.forEach((btn, i) => {
+    renderResults(btn, i)
   });
+}
+
+async function renderResults(btn, i) {
+  // Grab current number of votes from button
+  const buttonID = buttons.get(btn);
+  const {data : returnedVotes, error : err} = await supabase.from(table).select("votes").eq("option_id",  buttonID);
+
+  const p = document.createElement("p");
+  p.textContent = `${btn.textContent}: ${returnedVotes.votes} votes`;
+  resultsDiv.appendChild(p);
 }
 
 async function OnButtonClick(btn) {
@@ -60,15 +64,15 @@ async function OnButtonClick(btn) {
   await supabase.from(table).upsert({option_id: buttonID, votes: currentVotes + 1});
 }
 
-function renderResults(data) {
-  resultsDiv.innerHTML = "";
-  options.forEach((opt, i) => {
-    const count = data.filter(v => v.option_index === i).length;
-    const p = document.createElement("p");
-    p.textContent = `${opt}: ${count} votes`;
-    resultsDiv.appendChild(p);
-  });
-}
+// function renderResults(data) {
+//   resultsDiv.innerHTML = "";
+//   options.forEach((opt, i) => {
+//     const count = data.filter(v => v.option_index === i).length;
+//     const p = document.createElement("p");
+//     p.textContent = `${opt}: ${count} votes`;
+//     resultsDiv.appendChild(p);
+//   });
+// }
 
 // Realtime subscription using v2 syntax
 supabase
