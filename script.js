@@ -4,7 +4,7 @@ const SUPABASE_URL = 'https://izghwhppfuumvzjehfrr.supabase.co'
 const SUPABASE_ANON_KEY = "sb_publishable_OfDnBziyMsBman1rO6HAuQ_5Oe1uBAf";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const buttons = {};
+const buttons = new Map();
 const table = "PollVotes";
 
 // const options = ["Unreal", "Unity", "Godot"];
@@ -25,7 +25,7 @@ function UpdateButtons() {
   console.log(options);
   options.forEach((opt, i) => {
     const btn = document.createElement("button");
-    buttons[i] = btn;
+    buttons.set(btn, i);
     btn.textContent = opt;
     btn.onclick = async () => {
       await OnButtonClick(btn);
@@ -42,12 +42,10 @@ async function fetchVotes() {
 }
 
 async function OnButtonClick(btn) {
-  const buttonID = buttons.indexOf(btn);
+  const buttonID = buttons.get(btn);
   const currentVotes = await supabase.from(table).select("votes").eq("option_id",  buttonID);
   await supabase.from(table).update({ votes: currentVotes + 1 }).eq("option_id", buttonID);
-  const test = document.createElement("head");
-  test.textContent = "Please";
-  document.head.appendChild(test);
+  console.log("Pressed button " + buttonID);
 }
 
 function renderResults(data) {
@@ -76,3 +74,10 @@ supabase
 // Initial fetch
 fetchOptions();
 fetchVotes();
+
+function getByValue(map, searchValue) {
+  for (let [key, value] of map.entries()) {
+    if (value === searchValue)
+      return key;
+  }
+}
