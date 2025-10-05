@@ -15,7 +15,7 @@ const optionsDiv = document.getElementById("options");
 const resultsDiv = document.getElementById("results");
 
 function SetupButtons() {
-    for (optionName of tstOptions) {
+    for (const optionName of tstOptions) {
 
         // Create button
         const btn = document.createElement("button");
