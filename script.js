@@ -31,6 +31,8 @@ async function SetupButtons() {
         btn.onclick = async () => {
             await AddVote(btn);
         }
+
+        DisplayVotes();
     }
 }
 
@@ -66,5 +68,16 @@ function LogHeader(title) {
     console.log("\n\n");
     console.log("%c"+title, "color:blue");
 }
+
+supabase
+  .channel('table-db-changes')
+  .on(
+    'postgres_changes',
+    { event: 'INSERT', schema: 'public', table: tableName },
+    (payload) => {
+      DisplayVotes();
+    }
+  )
+  .subscribe();
 
 await SetupButtons();
