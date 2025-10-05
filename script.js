@@ -14,7 +14,7 @@ const tableName = 'PollVotes'
 const optionsDiv = document.getElementById("options");
 const resultsDiv = document.getElementById("results");
 
-function SetupButtons() {
+async function SetupButtons() {
     for (const optionName of tstOptions) {
 
         // Create button
@@ -24,6 +24,8 @@ function SetupButtons() {
 
         // Update map
         btnMap.set(btn, optionName);
+
+        await supabase.from(tableName).insert({ option_name : optionName, votes : 0});
 
         // Setup button listener
         btn.onclick = async () => {
@@ -54,4 +56,4 @@ function LogHeader(title) {
     console.log("%c"+title, "color:blue");
 }
 
-SetupButtons();
+await SetupButtons();
