@@ -7,11 +7,11 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const buttons = new Map();
 const table = "PollVotes";
 
-// const options = ["Unreal", "Unity", "Godot"];
 let options = [];
 const optionsDiv = document.getElementById("options");
 const resultsDiv = document.getElementById("results");
 
+// Grab options from table
 async function fetchOptions() {
   const { data } = await supabase.from(table).select("option_name");
   options = data.map(opt => opt.option_name);
@@ -19,60 +19,61 @@ async function fetchOptions() {
 }
 
 function UpdateButtons() {
-  // Render vote buttons
-  console.log(options);
+  // Create buttons
   options.forEach((opt, i) => {
+
+    // Create button and add to map
     const btn = document.createElement("button");
     buttons.set(btn, i);
+
+    // Assign content and event
     btn.textContent = opt;
     btn.onclick = async () => {
       await OnButtonClick(btn);
-      // await supabase.from(table).insert([{ option_index: i }]);
-      // await supabase.from(table).update({ votes: })
     };
+
+    // Add to page
     optionsDiv.appendChild(btn);
   });
 }
 
 async function fetchVotes() {
-  // const { data } = await supabase.from(table).select("*");
-  // renderResults(data);
-
-  buttons.forEach((btn, i) => {
-    renderResults(btn, i)
-  });
+  // buttons.forEach((btn, i) => {
+  //   renderResults(btn, i)
+  // });
+  renderResults();
 }
 
-async function renderResults(btn, i) {
-  // Grab current number of votes from button
-  const buttonID = buttons.get(btn);
-  const {data : returnedVotes, error : err} = await supabase.from(table).select("votes").eq("option_id",  buttonID);
-
-  const p = document.createElement("p");
-  p.textContent = `${btn.textContent}: ${returnedVotes.votes} votes`;
-  resultsDiv.appendChild(p);
-}
+// async function renderResults(btn, i) {
+//   // Grab current number of votes from button
+//   const votes = GrabButtonVotes(btn);
+//   const p = document.createElement("p");
+//   p.textContent = `${btn.textContent}: ${votes} votes`;
+//   resultsDiv.appendChild(p);
+// }
 
 async function OnButtonClick(btn) {
-
-  // Grab current number of votes from button
-  const buttonID = buttons.get(btn);
-  const {data : returnedVotes, error : err} = await supabase.from(table).select("votes").eq("option_id",  buttonID);
-
   // Add vote for specified option
-  const currentVotes = returnedVotes[0].votes;
+  const buttonID = buttons.get(btn)
+  const currentVotes = GrabButtonVotes(buttonID);
   await supabase.from(table).upsert({option_id: buttonID, votes: currentVotes + 1});
 }
 
-// function renderResults(data) {
-//   resultsDiv.innerHTML = "";
-//   options.forEach((opt, i) => {
-//     const count = data.filter(v => v.option_index === i).length;
-//     const p = document.createElement("p");
-//     p.textContent = `${opt}: ${count} votes`;
-//     resultsDiv.appendChild(p);
-//   });
-// }
+async function GrabButtonVotes(ID) {
+  // Grab votes based on button ID
+  const {data, error} = await supabase.from(table).select("votes").eq("option_id",  ID);
+  return data.votes;
+}
+
+function renderResults() {
+  resultsDiv.innerHTML = "";
+  options.forEach((opt, i) => {
+    const votes = GrabButtonVotes(i);
+    const p = document.createElement("p");
+    p.textContent = `${opt}: ${votes} votes`;
+    resultsDiv.appendChild(p);
+  });
+}
 
 // Realtime subscription using v2 syntax
 supabase
@@ -90,6 +91,10 @@ supabase
 // Initial fetch
 fetchOptions();
 fetchVotes();
+
+
+
+
 
 function getByValue(map, searchValue) {
   for (let [key, value] of map.entries()) {
