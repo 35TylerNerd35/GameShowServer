@@ -6,5 +6,5 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  await supabase.delete().neq('votes', -100);
+  await supabase.from("PollVotes").delete().neq('votes', -100);
 }
