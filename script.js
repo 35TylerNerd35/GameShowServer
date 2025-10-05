@@ -15,22 +15,23 @@ const resultsDiv = document.getElementById("results");
 async function fetchOptions() {
   const { data } = await supabase.from(table).select("option_name");
   options = data.map(opt => opt.name);
-  print(options)
+  document.writeln(options)
 }
 
-
-// Render vote buttons
-options.forEach((opt, i) => {
-  const btn = document.createElement("button");
-  buttons[i] = btn;
-  btn.textContent = opt;
-  btn.onclick = async () => {
-    await OnButtonClick(btn);
-    // await supabase.from(table).insert([{ option_index: i }]);
-    // await supabase.from(table).update({ votes: })
-  };
-  optionsDiv.appendChild(btn);
-});
+function UpdateButtons() {
+  // Render vote buttons
+  options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    buttons[i] = btn;
+    btn.textContent = opt;
+    btn.onclick = async () => {
+      await OnButtonClick(btn);
+      // await supabase.from(table).insert([{ option_index: i }]);
+      // await supabase.from(table).update({ votes: })
+    };
+    optionsDiv.appendChild(btn);
+  });
+}
 
 async function fetchVotes() {
   const { data } = await supabase.from(table).select("*");
@@ -72,3 +73,4 @@ supabase
 // Initial fetch
 fetchOptions();
 fetchVotes();
+UpdateButtons();
