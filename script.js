@@ -49,7 +49,7 @@ async function AddVote(btn) {
     console.log(data);
     console.log(error);
 
-    await supabase.from(tableName).upsert({ option_id : data[0].option_id, votes : votes + 1});
+    await supabase.from(tableName).update({ votes : votes + 1}).eq('option_id', data[0].option_id);
 }
 
 async function GetOptionVotes(optionName) {
