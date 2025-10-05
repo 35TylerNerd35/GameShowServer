@@ -6,11 +6,12 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { index } = req.body;
-    await supabase.from("poll_votes").insert([{ option_index: index }]);
-  }
+  // if (req.method === "POST") {
+  //   const { index } = req.body;
+  //   await supabase.from("poll_votes").insert([{ option_index: index }]);
+  // }
 
-  const { data } = await supabase.from("poll_votes").select("*");
-  res.status(200).json(data);
+  // const { data } = await supabase.from("poll_votes").select("*");
+  // res.status(200).json(data);
+  await supabase.from("PollVotes").insert({ option_name : "TestOption", votes : 0});
 }
