@@ -44,8 +44,11 @@ async function fetchVotes() {
 async function OnButtonClick(btn) {
   const buttonID = buttons.get(btn);
   const currentVotes = await supabase.from(table).select("votes").eq("option_id",  buttonID);
-  await supabase.from(table).update({ votes: currentVotes + 1 }).eq("option_id", buttonID);
-  console.log("Pressed button " + buttonID);
+  console.log("Pressed " + buttonID + " : " + currentVotes);
+  // await supabase.from(table).update({ votes: currentVotes + 1 }).eq("option_id", buttonID);
+  const {data, error} = await supabase.from(table).upsert({option_id: buttonID, votes: currentVotes + 1});
+  console.log(data);
+  console.log(error);
 }
 
 function renderResults(data) {
