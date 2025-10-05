@@ -41,7 +41,18 @@ async function fetchVotes() {
   // buttons.forEach((btn, i) => {
   //   renderResults(btn, i)
   // });
-  renderResults();
+  // renderResults();
+  const { data } = await supabase.from(table).select("*");
+  renderResults(data);
+}
+
+function renderResults(data) {
+  resultsDiv.innerHTML = "";
+  options.forEach((opt, i) => {
+    const votes = data[i].votes;
+    const p = document.createElement("p");
+    p.textContent = `${opt}: ${votes} votes`;
+  });
 }
 
 // async function renderResults(btn, i) {
@@ -65,15 +76,15 @@ async function GrabButtonVotes(ID) {
   return data.votes;
 }
 
-function renderResults() {
-  resultsDiv.innerHTML = "";
-  options.forEach((opt, i) => {
-    const votes = GrabButtonVotes(i);
-    const p = document.createElement("p");
-    p.textContent = `${opt}: ${votes} votes`;
-    resultsDiv.appendChild(p);
-  });
-}
+// function renderResults() {
+//   resultsDiv.innerHTML = "";
+//   options.forEach((opt, i) => {
+//     const votes = GrabButtonVotes(i);
+//     const p = document.createElement("p");
+//     p.textContent = `${opt}: ${votes} votes`;
+//     resultsDiv.appendChild(p);
+//   });
+// }
 
 // Realtime subscription using v2 syntax
 supabase
