@@ -71,12 +71,12 @@ async function OnButtonClick(btn) {
   // Add vote for specified option
   const buttonID = buttons.get(btn)
   const currentVotes = GrabButtonVotes(buttonID);
-  await supabase.from(table).upsert({option_id: buttonID, votes: currentVotes + 1});
+  await supabase.from(table).upsert({option_name: buttonID, votes: currentVotes + 1});
 }
 
 async function GrabButtonVotes(ID) {
   // Grab votes based on button ID
-  const {data, error} = await supabase.from(table).select("votes").eq("option_id",  ID);
+  const {data, error} = await supabase.from(table).select("votes").eq("option_name",  ID);
   return data.votes;
 }
 
