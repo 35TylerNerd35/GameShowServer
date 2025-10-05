@@ -15,6 +15,11 @@ const optionsDiv = document.getElementById("options");
 const resultsDiv = document.getElementById("results");
 
 async function SetupButtons() {
+    // Clear table
+    const { error } = await supabase.from(tableName).delete();
+    LogHeader("Clear Table");
+    console.log(error);
+
     for (const optionName of tstOptions) {
 
         // Create button
