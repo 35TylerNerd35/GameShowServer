@@ -35,24 +35,25 @@ async function SetupButtons() {
 }
 
 async function AddVote(btn) {
+    // Get current number of votes
     const optionName = btnMap.get(btn);
     const votes = await GetOptionVotes(optionName);
-    const { data, error } = await supabase.from(tableName).upsert({ option_name : optionName, votes : votes + 1});
-    LogHeader("AddVote");
+
+    const {data, error} = await supabase.from(tableName).select('option_id').eq('option_name', optionName);
+    LogHeader("Get Option ID");
     console.log(data);
     console.log(error);
+
+    await supabase.from(tableName).upsert({ option_id : data[0].option_id, votes : votes + 1});
 }
 
 async function GetOptionVotes(optionName) {
     const { data, error } = await supabase.from(tableName).select('votes').eq('option_name', optionName);
-    LogHeader("GetOptionVotes");
-    console.log(data);
-    console.log(error);
     return data[0].votes;
 }
 
 function LogHeader(title) {
-    console.log("\n\n\n");
+    console.log("\n\n");
     console.log("%c"+title, "color:blue");
 }
 
