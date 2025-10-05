@@ -20,7 +20,7 @@ async function fetchOptions() {
 
 function UpdateButtons() {
   // Create buttons
-  options.forEach((opt, i) => {
+  options.forEach((opt) => {
 
     // Create button and add to map
     const btn = document.createElement("button");
@@ -38,21 +38,15 @@ function UpdateButtons() {
 }
 
 async function fetchVotes() {
-  console.log("Fetching votes");
-  const { data } = await supabase.from(table).select("*");
-  renderResults(data);
+  renderResults();
 }
 
-async function renderResults(data) {
+async function renderResults() {
   resultsDiv.innerHTML = "";
-  // buttons.forEach((btn, opt) => {
-  //   const votes = data[i].votes;
-  //   const p = document.createElement("p");
-  //   p.textContent = `${opt}: ${votes} votes`;
-  // });
 
   for (var [btn, opt] of buttons) {
-    let count = await supabase.from(table).select("votes").eq("option_name", opt);
+    console.log(opt);
+    let count = await GrabButtonVotes(opt);
     let doc = document.createElement("p");
     doc.textContent = `${opt}: ${count[0].votes} votes`;
     resultsDiv.appendChild(doc);
