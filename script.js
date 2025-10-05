@@ -24,7 +24,7 @@ function UpdateButtons() {
 
     // Create button and add to map
     const btn = document.createElement("button");
-    buttons.set(btn, i);
+    buttons.set(btn, opt);
 
     // Assign content and event
     btn.textContent = opt;
@@ -38,21 +38,25 @@ function UpdateButtons() {
 }
 
 async function fetchVotes() {
-  // buttons.forEach((btn, i) => {
-  //   renderResults(btn, i)
-  // });
-  // renderResults();
+  console.log("Fetching votes");
   const { data } = await supabase.from(table).select("*");
   renderResults(data);
 }
 
-function renderResults(data) {
+async function renderResults(data) {
   resultsDiv.innerHTML = "";
-  options.forEach((opt, i) => {
-    const votes = data[i].votes;
-    const p = document.createElement("p");
-    p.textContent = `${opt}: ${votes} votes`;
-  });
+  // buttons.forEach((btn, opt) => {
+  //   const votes = data[i].votes;
+  //   const p = document.createElement("p");
+  //   p.textContent = `${opt}: ${votes} votes`;
+  // });
+
+  for (var [btn, opt] of buttons) {
+    let count = await supabase.from(table).select("votes").eq("option_name", opt);
+    let doc = document.createElement("p");
+    doc.textContent = `${opt}: ${count[0].votes} votes`;
+    resultsDiv.appendChild(doc);
+  }
 }
 
 // async function renderResults(btn, i) {
