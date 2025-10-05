@@ -35,22 +35,29 @@ function UpdateButtons() {
 }
 
 async function fetchVotes() {
-  const { data } = await supabase.from(table).select("*");
-  renderResults(data);
+  // const { data } = await supabase.from(table).select("*");
+  // renderResults(data);
+
+  options.forEach((opt, i) = async() => {
+    // Grab current number of votes from button
+    const buttonID = buttons.get(btn);
+    const {data : returnedVotes, error : err} = await supabase.from(table).select("votes").eq("option_id",  buttonID);
+
+    const p = document.createElement("p");
+    p.textContent = `${opt}: ${returnedVotes.votes} votes`;
+    resultsDiv.appendChild(p);
+  });
 }
 
 async function OnButtonClick(btn) {
+
+  // Grab current number of votes from button
   const buttonID = buttons.get(btn);
   const {data : returnedVotes, error : err} = await supabase.from(table).select("votes").eq("option_id",  buttonID);
-  console.log(returnedVotes);
-  console.log(err);
+
+  // Add vote for specified option
   const currentVotes = returnedVotes[0].votes;
-  console.log(currentVotes);
-  console.log("Pressed " + buttonID + " : " + currentVotes);
-  // await supabase.from(table).update({ votes: currentVotes + 1 }).eq("option_id", buttonID);
-  const {data, error} = await supabase.from(table).upsert({option_id: buttonID, votes: currentVotes + 1});
-  console.log(data);
-  console.log(error);
+  await supabase.from(table).upsert({option_id: buttonID, votes: currentVotes + 1});
 }
 
 function renderResults(data) {
