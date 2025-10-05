@@ -20,7 +20,7 @@ async function fetchOptions() {
 
 function UpdateButtons() {
   // Render vote buttons
-  console.log("Buttons");
+  console.log(options);
   options.forEach((opt, i) => {
     const btn = document.createElement("button");
     buttons[i] = btn;
