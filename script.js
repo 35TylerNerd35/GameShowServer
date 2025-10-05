@@ -14,8 +14,8 @@ const tableName = 'PollVotes'
 const optionsDiv = document.getElementById("options");
 const resultsDiv = document.getElementById("results");
 
-async function SetupButtons() {
-    for (const optionName of tstOptions) {
+async function SetupButtons(optionTxt) {
+    for (const optionName of optionTxt) {
 
         // Create button
         const btn = document.createElement("button");
@@ -24,8 +24,6 @@ async function SetupButtons() {
 
         // Update map
         btnMap.set(btn, optionName);
-
-        await supabase.from(tableName).insert({ option_name : optionName, votes : 0});
 
         // Setup button listener
         btn.onclick = async () => {
@@ -53,13 +51,7 @@ async function GetOptionVotes(optionName) {
 
 async function DisplayVotes() {
     for (const [btn, optionName] of btnMap) {
-        LogHeader("Button Map");
-        console.log(btn);
-        console.log(optionName);
-
-        LogHeader("Display")
         const votes = await GetOptionVotes(optionName);
-        console.log(votes);
         btn.innerText = optionName + ": " + votes;
     }
 }
@@ -80,4 +72,11 @@ supabase
   )
   .subscribe();
 
-await SetupButtons();
+// Grab database names
+const { data, error } = await supabase.from(tableName).select('option_name')
+tstOptions.length = 0;
+for (const option of data) {
+    tstOptions.push(option.option_name);
+}
+
+await SetupButtons(tstOptions);
