@@ -14,9 +14,7 @@ const resultsDiv = document.getElementById("results");
 
 async function fetchOptions() {
   const { data } = await supabase.from(table).select("option_name");
-  console.log(data);
   options = data.map(opt => opt.option_name);
-  console.log(options);
   UpdateButtons();
 }
 
@@ -43,7 +41,9 @@ async function fetchVotes() {
 
 async function OnButtonClick(btn) {
   const buttonID = buttons.get(btn);
-  const returnedVotes = await supabase.from(table).select("votes").eq("option_id",  buttonID);
+  const {data : returnedVotes, error : err} = await supabase.from(table).select("votes").eq("option_id",  buttonID);
+  console.log(returnedVotes);
+  console.log(err);
   const currentVotes = returnedVotes[0].votes;
   console.log(currentVotes);
   console.log("Pressed " + buttonID + " : " + currentVotes);
