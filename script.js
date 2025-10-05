@@ -73,7 +73,7 @@ supabase
   .channel('table-db-changes')
   .on(
     'postgres_changes',
-    { event: 'INSERT', schema: 'public', table: tableName },
+    { event: 'UPDATE', schema: 'public', table: tableName },
     (payload) => {
       DisplayVotes();
     }
