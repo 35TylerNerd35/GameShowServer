@@ -41,6 +41,9 @@ async function OnButtonClick(btn) {
   const buttonID = buttons.indexOf(btn);
   const currentVotes = await supabase.from(table).select("votes").eq("option_id",  buttonID);
   await supabase.from(table).update({ votes: currentVotes + 1 }).eq("option_id", buttonID);
+  const test = document.createElement("head");
+  test.textContent = "Please";
+  document.head.appendChild(test);
 }
 
 function renderResults(data) {
