@@ -15,7 +15,7 @@ const resultsDiv = document.getElementById("results");
 async function fetchOptions() {
   const { data } = await supabase.from(table).select("option_name");
   options = data.map(opt => opt.name);
-  document.writeln(options)
+  // document.writeln(options)
 }
 
 function UpdateButtons() {
