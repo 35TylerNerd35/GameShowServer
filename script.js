@@ -35,6 +35,9 @@ async function SetupButtons(optionTxt) {
             await AddVote(btn);
         }
         btn.onchange = async (event) => {
+            console.log(event);
+            console.log(event.target);
+            console.log(event.target.checked);
             if (event.target.checked)
             {
                 await AddVote(btn);
