@@ -22,10 +22,15 @@ async function SetupButtons(optionTxt) {
 
         // Create button
         const btn = document.createElement("input");
+        const row = document.createElement("div");
+        const label = document.createElement("label");
+        label.innerText = optionName;
+        row.appendChild(label);
+        row.appendChild(btn);
         btn.type = "checkbox";
         btn.name = optionName;
         btn.innerText = optionName;
-        optionsDiv.appendChild(btn);
+        optionsDiv.appendChild(row);
 
         // Update map
         btnMap.set(btn, optionName);
@@ -94,6 +99,7 @@ async function DisplayVotes() {
     for (const [btn, optionName] of btnMap) {
         const votes = await GetOptionVotes(optionName);
         btn.innerText = optionName + ": " + votes;
+        btn.document.getElementById("label").innerText = votes;
     }
 }
 
