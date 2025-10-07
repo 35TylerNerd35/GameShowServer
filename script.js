@@ -20,38 +20,37 @@ async function SetupButtons(optionTxt) {
 
     for (const optionName of optionTxt) {
 
-        // Create button
-        const btn = document.createElement("input");
+        // Create doc elements
         const row = document.createElement("div");
+        const chk = document.createElement("input");
         const label = document.createElement("label");
-        label.innerText = optionName;
+
+        // Setup doc elements
         row.appendChild(label);
-        row.appendChild(btn);
-        btn.type = "checkbox";
-        btn.name = optionName;
-        btn.innerText = optionName;
+        row.appendChild(chk);
         optionsDiv.appendChild(row);
 
+        // Setup checkbox
+        chk.type = "checkbox";
+        chk.name = optionName;
+        chk.innerText = optionName;
+
         // Update map
-        btnMap.set(btn, optionName);
+        btnMap.set(chk, optionName);
 
         // Setup button listener
-        btn.onclick = async () => {
-            await AddVote(btn);
-        }
-        btn.onchange = async (event) => {
-            console.log(event);
-            console.log(event.target);
-            console.log(event.target.checked);
+        chk.onchange = async (event) => {
+
+            // Check if should remove votes
+            const increment = -1;
             if (event.target.checked)
             {
-                AddVote(btn);
-                await RemoveOtherChecks(btn);
+                increment = 1;
+                RemoveOtherChecks(chk);
             }
-            else
-            {
-                await RemoveVote(btn);
-            }
+
+            // Change votes appropriately
+            await ChangeVotes(chk);
         }
 
         DisplayVotes();
@@ -60,34 +59,28 @@ async function SetupButtons(optionTxt) {
 
 async function RemoveOtherChecks(pressedBtn) {
     for (const [btn, optionName] of btnMap) {
+        // Skip if this button was just activated
         if (btn == pressedBtn) {
             continue;
         }
+
+        // Remove vote if was currently on checkbox
         if (btn.checked) {
             btn.checked = false;
-            RemoveVote(btn);
+            ChangeVotes(btn, -1);
         }
     }
 }
 
-async function AddVote(btn) {
-    // Get current number of votes
-    const optionName = btnMap.get(btn);
+async function ChangeVotes(chck, increment) {
+
+    // Grab requested checkbox
+    const optionName = btnMap.get(chck);
     const votes = await GetOptionVotes(optionName);
 
     // Update database
     const {data, error} = await supabase.from(tableName).select('option_id').eq('option_name', optionName);
-    await supabase.from(tableName).update({ votes : votes + 1}).eq('option_id', data[0].option_id);
-}
-
-async function RemoveVote(btn) {
-    // Get current number of votes
-    const optionName = btnMap.get(btn);
-    const votes = await GetOptionVotes(optionName);
-
-    // Update database
-    const {data, error} = await supabase.from(tableName).select('option_id').eq('option_name', optionName);
-    await supabase.from(tableName).update({ votes : votes - 1}).eq('option_id', data[0].option_id);
+    await supabase.from(tableName).update({ votes : votes + increment}).eq('option_id', data[0].option_id);
 }
 
 async function GetOptionVotes(optionName) {
@@ -97,12 +90,12 @@ async function GetOptionVotes(optionName) {
 
 async function DisplayVotes() {
     for (const [btn, optionName] of btnMap) {
+        // Grab votes to display
         const votes = await GetOptionVotes(optionName);
-        btn.innerText = optionName + ": " + votes;
+
+        // Update button text
         const parent = btn.parentNode;
-        console.log(parent.children[1]);
         parent.children[0].innerText = optionName + ": " + votes;
-        // btn.parentNode.getElementById("label").innerText = votes;
     }
 }
 
