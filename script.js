@@ -100,8 +100,8 @@ async function DisplayVotes() {
         const votes = await GetOptionVotes(optionName);
         btn.innerText = optionName + ": " + votes;
         const parent = btn.parentNode;
-        console.log(parent);
-        parent.getElementById("label").innerText = votes;
+        console.log(parent.children[1]);
+        parent.children[1].innerText = votes;
         // btn.parentNode.getElementById("label").innerText = votes;
     }
 }
