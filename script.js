@@ -42,15 +42,15 @@ async function SetupButtons(optionTxt) {
         chk.onchange = async (event) => {
 
             // Check if should remove votes
-            const increment = -1;
             if (event.target.checked)
             {
-                increment = 1;
                 RemoveOtherChecks(chk);
+                await ChangeVotes(chk, 1);
             }
-
-            // Change votes appropriately
-            await ChangeVotes(chk);
+            else
+            {
+                await ChangeVotes(chk, -1);
+            }
         }
 
         DisplayVotes();
