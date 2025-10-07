@@ -41,6 +41,7 @@ async function SetupButtons(optionTxt) {
             if (event.target.checked)
             {
                 await AddVote(btn);
+                await RemoveOtherChecks(btn);
             }
             else
             {
