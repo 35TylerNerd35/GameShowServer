@@ -99,7 +99,10 @@ async function DisplayVotes() {
     for (const [btn, optionName] of btnMap) {
         const votes = await GetOptionVotes(optionName);
         btn.innerText = optionName + ": " + votes;
-        btn.parentNode.getElementById("label").innerText = votes;
+        const parent = btn.parentNode;
+        console.log(parent);
+        parent.getElementById("label").innerText = votes;
+        // btn.parentNode.getElementById("label").innerText = votes;
     }
 }
 
