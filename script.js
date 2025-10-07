@@ -45,7 +45,7 @@ async function SetupButtons(optionTxt) {
             console.log(event.target.checked);
             if (event.target.checked)
             {
-                await AddVote(btn);
+                AddVote(btn);
                 await RemoveOtherChecks(btn);
             }
             else
@@ -65,7 +65,7 @@ async function RemoveOtherChecks(pressedBtn) {
         }
         if (btn.checked) {
             btn.checked = false;
-            await RemoveVote(btn);
+            RemoveVote(btn);
         }
     }
 }
