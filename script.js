@@ -52,6 +52,18 @@ async function SetupButtons(optionTxt) {
     }
 }
 
+async function RemoveOtherChecks(pressedBtn) {
+    for (const [btn, optionName] of btnMap) {
+        if (btn == pressedBtn) {
+            continue;
+        }
+        if (btn.checked) {
+            btn.checked = false;
+            await RemoveVote(btn);
+        }
+    }
+}
+
 async function AddVote(btn) {
     // Get current number of votes
     const optionName = btnMap.get(btn);
