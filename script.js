@@ -75,13 +75,6 @@ supabase
   )
   .subscribe();
 
-// Grab database names
-const { data, error } = await supabase.from(tableName).select('option_name')
-tstOptions.length = 0;
-for (const option of data) {
-    tstOptions.push(option.option_name);
-}
-
 async function RefreshButtons() {
     const grabbedOptions  = [];
 
