@@ -101,7 +101,7 @@ async function DisplayVotes() {
         btn.innerText = optionName + ": " + votes;
         const parent = btn.parentNode;
         console.log(parent.children[1]);
-        parent.children[1].innerText = votes;
+        parent.children[0].innerText = optionName + ": " + votes;
         // btn.parentNode.getElementById("label").innerText = votes;
     }
 }
