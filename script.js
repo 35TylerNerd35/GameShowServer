@@ -34,6 +34,16 @@ async function SetupButtons(optionTxt) {
         btn.onclick = async () => {
             await AddVote(btn);
         }
+        btn.onchange = async (event) => {
+            if (event.target.checked)
+            {
+                await AddVote(btn);
+            }
+            else
+            {
+                await RemoveVote(btn);
+            }
+        }
 
         DisplayVotes();
     }
@@ -47,6 +57,16 @@ async function AddVote(btn) {
     // Update database
     const {data, error} = await supabase.from(tableName).select('option_id').eq('option_name', optionName);
     await supabase.from(tableName).update({ votes : votes + 1}).eq('option_id', data[0].option_id);
+}
+
+async function RemoveVote(btn) {
+    // Get current number of votes
+    const optionName = btnMap.get(btn);
+    const votes = await GetOptionVotes(optionName);
+
+    // Update database
+    const {data, error} = await supabase.from(tableName).select('option_id').eq('option_name', optionName);
+    await supabase.from(tableName).update({ votes : votes - 1}).eq('option_id', data[0].option_id);
 }
 
 async function GetOptionVotes(optionName) {
