@@ -21,7 +21,9 @@ async function SetupButtons(optionTxt) {
     for (const optionName of optionTxt) {
 
         // Create button
-        const btn = document.createElement("checkbox");
+        const btn = document.createElement("input");
+        btn.type = "checkbox";
+        btn.name = optionName;
         btn.innerText = optionName;
         optionsDiv.appendChild(btn);
 
