@@ -7,7 +7,6 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Declare vars
 const btnMap = new Map();
-const tstOptions = ["I", "Am", "A", "Option"];
 const tableName = 'PollVotes'
 
 // Declare documents
@@ -15,6 +14,10 @@ const optionsDiv = document.getElementById("options");
 const resultsDiv = document.getElementById("results");
 
 async function SetupButtons(optionTxt) {
+    // Clear buttons
+    optionsDiv.innerHTML = "";
+    btnMap.clear();
+
     for (const optionName of optionTxt) {
 
         // Create button
@@ -79,4 +82,16 @@ for (const option of data) {
     tstOptions.push(option.option_name);
 }
 
-await SetupButtons(tstOptions);
+async function RefreshButtons() {
+    const grabbedOptions  = [];
+
+    // Grab database names, push to array
+    const { data, error } = await supabase.from(tableName).select('option_name')
+    for (const option of data) {
+        grabbedOptions.push(option.option_name);
+    }
+
+    await SetupButtons(grabbedOptions);
+}
+
+await RefreshButtons();
