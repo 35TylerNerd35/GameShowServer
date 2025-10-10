@@ -59,7 +59,17 @@ async function Setup() {
             'postgres_changes',
             { event: 'UPDATE', schema: 'public', table: voteTable },
             (payload) => {
-                console.log(payload);
+                if (payload.new.lobby_id != lobbyCode) {
+                    return;
+                }
+
+                // Find element in array
+                const elementInArray = poll_options.find(element => element.option_id == payload.new.option_id);
+                const checkedIndex = poll_options.indexOf(elementInArray);
+
+                // Update votes
+                poll_options[checkedIndex].votes = payload.new.votes;
+                UpdateVoteDisplays();
             }
         )
         .subscribe();
