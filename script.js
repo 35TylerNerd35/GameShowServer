@@ -15,9 +15,10 @@ const lobbyCodeInpt = document.getElementById("lobbyCode");
 const inPersonCheck = document.getElementById("isInPerson");
 const joinLobbyBtn = document.getElementById("joinLobby");
 
+const poll_options = [{option_id : 0, created_at : new Date(), option_name : "Option 1", votes : 0}];
+
 // Dynamic vars
 let lobbyCode;
-let poll_options;
 let checkedOption;
 
 async function Setup() {
