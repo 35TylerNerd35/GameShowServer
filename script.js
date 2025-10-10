@@ -52,6 +52,17 @@ async function Setup() {
         await supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
         
         SetupButtons();
+
+        supabase
+        .channel('table-db-changes')
+        .on(
+            'postgres_changes',
+            { event: 'UPDATE', schema: 'public', table: voteTable },
+            (payload) => {
+                console.log(payload);
+            }
+        )
+        .subscribe();
     }
 }
 
