@@ -16,6 +16,7 @@ const inPersonCheck = document.getElementById("isInPerson");
 const joinLobbyBtn = document.getElementById("joinLobby");
 
 const poll_options = [{option_id : 0, created_at : new Date(), option_name : "Option 1", votes : 0}];
+const test : {option_id : number, created_at : Date, option_name : string, votes : number};
 
 // Dynamic vars
 let lobbyCode;
@@ -86,6 +87,7 @@ function CreateButton(buttonInformation) {
     optionCheckbox.setAttribute("type", "checkbox")
     optionCheckbox.setAttribute("id", buttonInformation.option_name + "Checkbox")
     optionCheckbox.setAttribute("name", buttonInformation.option_name)
+    optionCheckbox.setAttribute("option_id", buttonInformation.option_id);
 
     optionLabel.innerText = buttonInformation.option_name;
 
@@ -130,7 +132,7 @@ function SetVote(newVoteCheckbox) {
     }
 
     // Vote for new option
-    checkedOption = poll_options.find(element => element.option_name == newVoteCheckbox.name);
+    checkedOption = poll_options.find(element => element.option_id == newVoteCheckbox.option_id);
     DisplayNewVote(checkedOption, 1);
 }
 
@@ -140,7 +142,7 @@ function DisplayNewVote(option, increment) {
     const checkedCheckbox = option.option_name + "Checkbox";
 
     // Find element in array
-    const checkedInArray = poll_options.find(element => element.option_name == checkedLabel);
+    const checkedInArray = poll_options.find(element => element.option_id == option.option_id);
     const checkedIndex = poll_options.indexOf(checkedInArray);
 
     // Update display
