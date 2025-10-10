@@ -136,7 +136,7 @@ function SetVote(newVoteCheckbox) {
     DisplayNewVote(checkedOption, 1);
 }
 
-function DisplayNewVote(option, increment) {
+async function DisplayNewVote(option, increment) {
     // Grab elements of previously checked options
     const checkedLabel = document.getElementById(option.option_name + "Label");
 
@@ -149,7 +149,8 @@ function DisplayNewVote(option, increment) {
     checkedLabel.innerText = option.option_name + " (" + poll_options[checkedIndex].votes + ")";
     
     // Update database
-    supabase.from(voteTable).update({ votes : poll_options[checkedIndex].votes }).eq('option_name', option.option_name);
+    // supabase.from(voteTable).update({ votes : poll_options[checkedIndex].votes }).eq('option_name', option.option_name);
+    await supabase.from(voteTable).update({ votes : poll_options[checkedIndex].votes }).eq('option_id', option.option_id);
 }
 
 
