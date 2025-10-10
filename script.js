@@ -18,6 +18,7 @@ const joinLobbyBtn = document.getElementById("joinLobby");
 // Dynamic vars
 let lobbyCode;
 let poll_options;
+let checkedOption;
 
 async function Setup() {
     
@@ -91,6 +92,21 @@ function CreateButton(buttonInformation) {
     optionsDiv.appendChild(parentContainer);
     parentContainer.appendChild(optionLabel);
     parentContainer.appendChild(optionCheckbox);
+
+    // Read checkbox inputs
+    // Setup button listener
+    optionCheckbox.onchange = async (event) => {
+
+        // Check if should remove votes
+        if (event.target.checked)
+        {
+            SetVote(event.target);
+        }
+        else
+        {
+            SetVote();
+        }
+    }
 }
 
 async function UpdateVoteDisplays() {
@@ -98,6 +114,39 @@ async function UpdateVoteDisplays() {
         const optionLabel = document.getElementById(option.option_name + "Label");
         optionLabel.innerText = option.option_name + " (" + option.votes + ")";
     }
+}
+
+function SetVote(newVoteCheckbox) {
+
+    if (checkedOption != null) {
+        DisplayNewVote(checkedOption, -1)
+    }
+
+    // Remove checked and return if no new option to vote for
+    if (newVoteCheckbox == null) {
+        checkedOption = null;
+        return;
+    }
+
+    // Vote for new option
+    checkedOption = FindElementInArray(poll_options, newVoteCheckbox.name);
+    checkedOption.votes += 1;
+    DisplayNewVote(checkedOption, 1);
+}
+
+function DisplayNewVote(option, increment) {
+    // Grab elements of previously checked options
+    const checkedLabel = option.option_name + "Label";
+    const checkedCheckbox = option.option_name + "Checkbox";
+
+    // Update visuals for last checked
+    let checkedInArray = FindElementInArray(poll_options, option.option_name);
+    checkedInArray.votes += increment;
+    checkedLabel.innerText = option.option_name + " (" + checkedInArray.votes + ")";
+    checkedCheckbox.checked = false;
+    
+    // Update database
+    supabase.from(voteTable).update({ votes : checkedInArray.votes }).eq('option_name', option.option_name);
 }
 
 
