@@ -132,7 +132,7 @@ async function RefreshButtons() {
 await RefreshButtons();
 joinLobbyBtn.onclick = async () => {
     const lobbyCode = lobbyCodeInpt.value;
-    const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_code', lobbyCode);
+    const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_id', lobbyCode);
     console.log(data);
     console.log(error);
 }
