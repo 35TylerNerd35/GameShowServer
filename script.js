@@ -120,7 +120,7 @@ async function UpdateVoteDisplays() {
 
 function SetVote(newVoteCheckbox) {
 
-    if (checkedOption != null) {
+    if (checkedOption != null && checkedOption.option_id !== undefined) {
         DisplayNewVote(checkedOption, -1)
     }
 
