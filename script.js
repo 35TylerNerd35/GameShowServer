@@ -71,9 +71,9 @@ async function SetupButtons() {
 async function CreateButton(buttonInformation) {
 
     // Define doc elements
-    const parentContainer = document.createAttribute("div")
-    const optionLabel = document.createAttribute("label")
-    const optionCheckbox = document.createAttribute("input")
+    const parentContainer = document.createElement("div")
+    const optionLabel = document.createElement("label")
+    const optionCheckbox = document.createElement("input")
 
     // Set attributes
     optionLabel.setAttribute("for", buttonInformation.option_name)
