@@ -17,8 +17,7 @@ const joinLobbyBtn = document.getElementById("joinLobby");
 
 // Dynamic vars
 let lobbyCode;
-
-const poll_options = [{}];
+let poll_options;
 
 async function Setup() {
     
@@ -55,15 +54,38 @@ async function Setup() {
 }
 
 async function SetupButtons() {
-    // Grab database names, push to array
+    // Grab database
     const { data, error } = await supabase.from(voteTable).select().eq('lobby_id', lobbyCode);
+
+    // Clear current data
+    poll_options = [];
+    optionsDiv.innerHTML = "";
+
+    // Keep track of and define row
     for (const row of data) {
         poll_options.push(row);
+        CreateButton(row);
     }
-    console.log(poll_options);
 }
 
-// async function CreateButton(buttonInformation)
+async function CreateButton(buttonInformation) {
+
+    // Define doc elements
+    const parentContainer = document.createAttribute("div")
+    const optionLabel = document.createAttribute("label")
+    const optionCheckbox = document.createAttribute("input")
+
+    // Set attributes
+    optionLabel.setAttribute("for", buttonInformation.option_name)
+    optionCheckbox.setAttribute("type", "checkbox")
+    optionCheckbox.setAttribute("id", buttonInformation.option_name)
+    optionCheckbox.setAttribute("name", buttonInformation.option_name)
+
+    // Add to document
+    optionsDiv.appendChild(parentContainer);
+    parentContainer.appendChild(optionLabel);
+    parentContainer.appendChild(optionCheckbox);
+}
 
 
 
