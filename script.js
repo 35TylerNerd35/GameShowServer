@@ -6,160 +6,67 @@ const SUPABASE_ANON_KEY = "sb_publishable_OfDnBziyMsBman1rO6HAuQ_5Oe1uBAf";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Declare vars
-const btnMap = new Map();
-const tableName = 'PollVotes'
+const voteTable = 'PollVotes'
+const deviceTable = 'DeviceInformation'
 
 // Declare documents
 const optionsDiv = document.getElementById("options");
 const lobbyCodeInpt = document.getElementById("lobbyCode");
+const inPersonCheck = document.getElementById("isInPerson");
 const joinLobbyBtn = document.getElementById("joinLobby");
+
+// Dynamic vars
 let lobbyCode;
 
+const poll_options = [{}];
 
-async function SetupButtons(optionTxt) {
-    // Clear buttons
-    optionsDiv.innerHTML = "";
-    btnMap.clear();
+async function Setup() {
+    
+    joinLobbyBtn.onclick = async () => {
 
-    for (const optionName of optionTxt) {
+        // Attempt to find lobby
+        lobbyCode = lobbyCodeInpt.value;
+        const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_id', lobbyCode);
 
-        // Create doc elements
-        const row = document.createElement("div");
-        const chk = document.createElement("input");
-        const label = document.createElement("label");
-
-        // Setup doc elements
-        row.appendChild(label);
-        row.appendChild(chk);
-        optionsDiv.appendChild(row);
-
-        // Setup checkbox
-        chk.type = "checkbox";
-        chk.name = optionName;
-        chk.innerText = optionName;
-
-        // Update map
-        btnMap.set(chk, optionName);
-
-        // Setup button listener
-        chk.onchange = async (event) => {
-
-            // Check if should remove votes
-            if (event.target.checked)
-            {
-                RemoveOtherChecks(chk);
-                await ChangeVotes(chk, 1);
-            }
-            else
-            {
-                await ChangeVotes(chk, -1);
-            }
+        // Alert user to incorrect code
+        if (data == null || data.length <= 0) {
+            window.alert("Invalid lobby code. Please try again.");
+            return;
         }
 
-        DisplayVotes();
-    }
-}
-
-async function RemoveOtherChecks(pressedBtn) {
-    for (const [btn, optionName] of btnMap) {
-        // Skip if this button was just activated
-        if (btn == pressedBtn) {
-            continue;
+        // Grab registered device IDs
+        const { data : deviceData, error : deviceError } = await supabase.from('DeviceInformation').select('device_id');
+        const devices = [];
+        for (const device of deviceData) {
+            devices.push(device.device_id);
         }
 
-        // Remove vote if was currently on checkbox
-        if (btn.checked) {
-            btn.checked = false;
-            ChangeVotes(btn, -1);
+        // Set new ID
+        let device_id = 0;
+        while (devices.includes(device_id)) {
+            device_id = RandomInRange(1, 1000000);
         }
+
+        // Register ID
+        supabase.from('DeviceInformation').insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
     }
 }
 
-async function ChangeVotes(chck, increment) {
-
-    // Grab requested checkbox
-    const optionName = btnMap.get(chck);
-    const votes = await GetOptionVotes(optionName);
-
-    // Update database
-    const {data, error} = await supabase.from(tableName).select('option_id').eq('option_name', optionName);
-    await supabase.from(tableName).update({ votes : votes + increment}).eq('option_id', data[0].option_id);
-}
-
-async function GetOptionVotes(optionName) {
-    const { data, error } = await supabase.from(tableName).select('votes').eq('option_name', optionName);
-    return data[0].votes;
-}
-
-async function DisplayVotes() {
-    for (const [btn, optionName] of btnMap) {
-        // Grab votes to display
-        const votes = await GetOptionVotes(optionName);
-
-        // Update button text
-        const parent = btn.parentNode;
-        parent.children[0].innerText = optionName + ": " + votes;
-    }
-}
-
-function LogHeader(title) {
-    console.log("\n\n");
-    console.log("%c"+title, "color:blue");
-}
-
-supabase
-  .channel('table-db-changes')
-  .on(
-    'postgres_changes',
-    { event: 'UPDATE', schema: 'public', table: tableName },
-    (payload) => {
-      DisplayVotes();
-    }
-  )
-  .subscribe();
-
-async function RefreshButtons() {
-    const grabbedOptions  = [];
-
+async function SetupButtons() {
     // Grab database names, push to array
-    const { data, error } = await supabase.from(tableName).select('option_name').eq('lobby_id', lobbyCode);
-    for (const option of data) {
-        grabbedOptions.push(option.option_name);
+    const { data, error } = await supabase.from(tableName).select().eq('lobby_id', lobbyCode);
+    for (const row of data) {
+        poll_options.push(row);
     }
-
-    await SetupButtons(grabbedOptions);
+    console.log(poll_options);
 }
 
-joinLobbyBtn.onclick = async () => {
-    // Attempt to find lobby
-    lobbyCode = lobbyCodeInpt.value;
-    const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_id', lobbyCode);
-    console.log(data);
-    console.log(error)
+// async function CreateButton(buttonInformation)
 
-    // Alert user to incorrect code
-    if (data == null || data.length <= 0) {
-        window.alert("Invalid lobby code. Please try again.");
-        return;
-    }
 
-    // Grab registered device IDs
-    const { data : deviceData, error : deviceError } = await supabase.from('DeviceInformation').select('device_id');
-    const devices = [];
-    for (const device of deviceData) {
-        devices.push(device.device_id);
-    }
 
-    // Set new ID
-    let device_id = 0;
-    while (devices.includes(device_id)) {
-        device_id = RandomInRange(1, 1000000);
-    }
 
-    // Register ID
-    supabase.from('DeviceInformation').insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false });
-    RefreshButtons();
-}
+
 
 
 
