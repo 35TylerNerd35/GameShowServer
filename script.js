@@ -151,7 +151,7 @@ joinLobbyBtn.onclick = async () => {
     }
 
     // Set new ID
-    const device_id = 0;
+    let device_id = 0;
     while (devices.includes(device_id)) {
         device_id = RandomInRange(1, 1000000);
     }
