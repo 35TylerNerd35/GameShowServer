@@ -16,6 +16,7 @@ const inPersonCheck = document.getElementById("isInPerson");
 const joinLobbyBtn = document.getElementById("joinLobby");
 
 const poll_options = [{option_id : 0, created_at : new Date(), option_name : "Option 1", votes : 0}];
+const hasRegisteredDeviceID = false;
 
 // Dynamic vars
 let lobbyCode;
@@ -50,6 +51,7 @@ async function Setup() {
 
         // Register ID
         await supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
+        hasRegisteredDeviceID = true;
         
         SetupButtons();
 
@@ -76,7 +78,18 @@ async function Setup() {
     }
 }
 
-async function SetupButtons() {
+async function SetupButtons(inLobbyCode) {
+
+    // Don't run if not in a lobby
+    if (!hasRegisteredDeviceID) {
+        return;
+    }
+
+    // Don't run if different lobby is being updated
+    if (inLobbyCode != null && inLobbyCode != lobbyCode) {
+        return;
+    }
+
     // Grab database
     const { data, error } = await supabase.from(voteTable).select().eq('lobby_id', lobbyCode);
 

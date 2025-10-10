@@ -10,6 +10,7 @@ export default async function handler(req, res) {
 
   // Grab names from payload
   const payload = req.body;
+  const lobbyCode = payload.lobbyCode;
   const optionNames = payload.optionNames;
 
   // Setup new options
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
   }
 
   // Refresh buttons
-  await RefreshButtons();
+  await SetupButtons(lobbyCode);
 
   res.status(200).send("Success");
 }
