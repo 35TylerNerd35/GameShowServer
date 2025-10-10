@@ -26,7 +26,7 @@ async function Setup() {
 
         // Attempt to find lobby
         lobbyCode = lobbyCodeInpt.value;
-        const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_id', lobbyCode);
+        const { data, error } = await supabase.from(deviceTable).select('lobby_id').eq('is_host', true).eq('lobby_id', lobbyCode);
 
         // Alert user to incorrect code
         if (data == null || data.length <= 0) {
@@ -35,7 +35,7 @@ async function Setup() {
         }
 
         // Grab registered device IDs
-        const { data : deviceData, error : deviceError } = await supabase.from('DeviceInformation').select('device_id');
+        const { data : deviceData, error : deviceError } = await supabase.from(deviceTable).select('device_id');
         const devices = [];
         for (const device of deviceData) {
             devices.push(device.device_id);
@@ -48,7 +48,7 @@ async function Setup() {
         }
 
         // Register ID
-        supabase.from('DeviceInformation').insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
+        supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
         
         SetupButtons();
     }
@@ -56,7 +56,7 @@ async function Setup() {
 
 async function SetupButtons() {
     // Grab database names, push to array
-    const { data, error } = await supabase.from(tableName).select().eq('lobby_id', lobbyCode);
+    const { data, error } = await supabase.from(voteTable).select().eq('lobby_id', lobbyCode);
     for (const row of data) {
         poll_options.push(row);
     }
