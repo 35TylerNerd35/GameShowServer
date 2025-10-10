@@ -131,8 +131,39 @@ async function RefreshButtons() {
 
 await RefreshButtons();
 joinLobbyBtn.onclick = async () => {
+    // Attempt to find lobby
     const lobbyCode = lobbyCodeInpt.value;
-    const { data, error } = await supabase.from('DeviceInformation').select('is_host').eq('lobby_id', lobbyCode);
+    const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_code', lobbyCode);
     console.log(data);
-    console.log(error);
+    console.log(error)
+
+    // Alert user to incorrect code
+    if (data.length <= 0) {
+        window.alert("Invalid lobby code. Please try again.");
+        return;
+    }
+
+    // Grab registered device IDs
+    const { data : deviceData, error : deviceError } = await supabase.from('DeviceInformation').select('device_id');
+    const devices = [];
+    for (const device of deviceData) {
+        devices.push(device.device_id);
+    }
+
+    // Set new ID
+    const device_id = 0;
+    while (devices.includes(device_id)) {
+        device_id = RandomInRange(1, 1000000);
+    }
+
+    // Register ID
+    await supabase.from('DeviceInformation').insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false });
+}
+
+
+
+function RandomInRange(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
 }
