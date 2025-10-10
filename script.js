@@ -132,6 +132,8 @@ function SetVote(newVoteCheckbox) {
 
     // Vote for new option
     checkedOption = poll_options.find(element => element.option_id == newVoteCheckbox.option_id);
+    console.log(newVoteCheckbox);
+    console.log(poll_options);
     console.log(checkedOption);
     DisplayNewVote(checkedOption, 1);
 }
