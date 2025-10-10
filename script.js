@@ -81,6 +81,8 @@ async function CreateButton(buttonInformation) {
     optionCheckbox.setAttribute("id", buttonInformation.option_name)
     optionCheckbox.setAttribute("name", buttonInformation.option_name)
 
+    optionLabel.innerText = buttonInformation.option_name;
+
     // Add to document
     optionsDiv.appendChild(parentContainer);
     parentContainer.appendChild(optionLabel);
