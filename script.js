@@ -94,15 +94,9 @@ function CreateButton(buttonInformation) {
 }
 
 async function UpdateVoteDisplays() {
-    const { data, error } = await supabase.from(voteTable).select('option_name, votes').eq('lobby_id', lobbyCode);
     for (const option of poll_options) {
-        let optionElement = FindElementInArray(data, option.option_name);
-
-        if (optionElement == null) {
-            return;
-        }
-
-        document.getElementById(option.option_name + "Label").innerText = option.option_name + ": " + optionElement.votes;
+        const optionLabel = document.getElementById(option.option_name + "Label");
+        optionLabel.innerText = option.option_name + " (" + option.votes + ")";
     }
 }
 
@@ -121,7 +115,7 @@ function RandomInRange(min, max) {
 }
 
 function FindElementInArray(array, element) {
-    for (arrayElement of array) {
+    for (const arrayElement of array) {
         if (arrayElement.includes(element)) {
             return arrayElement;
         }
