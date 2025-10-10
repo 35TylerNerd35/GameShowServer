@@ -66,7 +66,7 @@ async function SetupButtons() {
 
 
 
-
+Setup();
 
 
 
