@@ -13,6 +13,7 @@ const tableName = 'PollVotes'
 const optionsDiv = document.getElementById("options");
 const lobbyCodeInpt = document.getElementById("lobbyCode");
 const joinLobbyBtn = document.getElementById("joinLobby");
+let lobbyCode;
 
 
 async function SetupButtons(optionTxt) {
@@ -121,7 +122,7 @@ async function RefreshButtons() {
     const grabbedOptions  = [];
 
     // Grab database names, push to array
-    const { data, error } = await supabase.from(tableName).select('option_name')
+    const { data, error } = await supabase.from(tableName).select('option_name').eq('lobby_id', lobbyCode);
     for (const option of data) {
         grabbedOptions.push(option.option_name);
     }
@@ -129,10 +130,9 @@ async function RefreshButtons() {
     await SetupButtons(grabbedOptions);
 }
 
-await RefreshButtons();
 joinLobbyBtn.onclick = async () => {
     // Attempt to find lobby
-    const lobbyCode = lobbyCodeInpt.value;
+    lobbyCode = lobbyCodeInpt.value;
     const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_id', lobbyCode);
     console.log(data);
     console.log(error)
@@ -157,7 +157,8 @@ joinLobbyBtn.onclick = async () => {
     }
 
     // Register ID
-    await supabase.from('DeviceInformation').insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false });
+    supabase.from('DeviceInformation').insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false });
+    RefreshButtons();
 }
 
 
