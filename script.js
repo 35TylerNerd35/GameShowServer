@@ -133,12 +133,12 @@ await RefreshButtons();
 joinLobbyBtn.onclick = async () => {
     // Attempt to find lobby
     const lobbyCode = lobbyCodeInpt.value;
-    const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_code', lobbyCode);
+    const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_id', lobbyCode);
     console.log(data);
     console.log(error)
 
     // Alert user to incorrect code
-    if (data.length <= 0) {
+    if (data == null || data.length <= 0) {
         window.alert("Invalid lobby code. Please try again.");
         return;
     }
