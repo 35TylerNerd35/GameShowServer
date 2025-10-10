@@ -49,7 +49,7 @@ async function Setup() {
         }
 
         // Register ID
-        supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
+        await supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
         
         SetupButtons();
     }
