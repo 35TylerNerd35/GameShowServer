@@ -140,8 +140,8 @@ function SetVote(newVoteCheckbox) {
 
 function DisplayNewVote(option, increment) {
     // Grab elements of previously checked options
-    const checkedLabel = option.option_name + "Label";
-    const checkedCheckbox = option.option_name + "Checkbox";
+    const checkedLabel = document.getElementById(option.option_name + "Label");
+    const checkedCheckbox = document.getElementById(option.option_name + "Checkbox");
 
     // Find element in array
     const checkedInArray = poll_options.find(element => element.option_id == option.option_id);
