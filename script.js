@@ -129,8 +129,7 @@ function SetVote(newVoteCheckbox) {
     }
 
     // Vote for new option
-    checkedOption = FindElementInArray(poll_options, newVoteCheckbox.name);
-    checkedOption.votes += 1;
+    checkedOption = poll_options.find(element => element.option_name == newVoteCheckbox.name);
     DisplayNewVote(checkedOption, 1);
 }
 
@@ -140,7 +139,7 @@ function DisplayNewVote(option, increment) {
     const checkedCheckbox = option.option_name + "Checkbox";
 
     // Update visuals for last checked
-    let checkedInArray = FindElementInArray(poll_options, option.option_name);
+    let checkedInArray = poll_options.find(element => element.option_name == checkedLabel);
     checkedInArray.votes += increment;
     checkedLabel.innerText = option.option_name + " (" + checkedInArray.votes + ")";
     checkedCheckbox.checked = false;
@@ -161,12 +160,4 @@ function RandomInRange(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function FindElementInArray(array, element) {
-    for (const arrayElement of array) {
-        if (arrayElement.includes(element)) {
-            return arrayElement;
-        }
-    }
 }
