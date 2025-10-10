@@ -138,14 +138,17 @@ function DisplayNewVote(option, increment) {
     const checkedLabel = option.option_name + "Label";
     const checkedCheckbox = option.option_name + "Checkbox";
 
-    // Update visuals for last checked
-    let checkedInArray = poll_options.find(element => element.option_name == checkedLabel);
-    checkedInArray.votes += increment;
-    checkedLabel.innerText = option.option_name + " (" + checkedInArray.votes + ")";
+    // Find element in array
+    const checkedInArray = poll_options.find(element => element.option_name == checkedLabel);
+    const checkedIndex = poll_options.indexOf(checkedInArray);
+
+    // Update display
+    poll_options[checkedIndex].votes += increment;
+    checkedLabel.innerText = option.option_name + " (" + poll_options[checkedIndex].votes + ")";
     checkedCheckbox.checked = false;
     
     // Update database
-    supabase.from(voteTable).update({ votes : checkedInArray.votes }).eq('option_name', option.option_name);
+    supabase.from(voteTable).update({ votes : poll_options[checkedIndex].votes }).eq('option_name', option.option_name);
 }
 
 
