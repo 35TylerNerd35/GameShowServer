@@ -66,9 +66,11 @@ async function SetupButtons() {
         poll_options.push(row);
         CreateButton(row);
     }
+
+    UpdateVoteDisplays();
 }
 
-async function CreateButton(buttonInformation) {
+function CreateButton(buttonInformation) {
 
     // Define doc elements
     const parentContainer = document.createElement("div")
@@ -76,9 +78,11 @@ async function CreateButton(buttonInformation) {
     const optionCheckbox = document.createElement("input")
 
     // Set attributes
+    parentContainer.setAttribute("class", "option")
     optionLabel.setAttribute("for", buttonInformation.option_name)
+    optionLabel.setAttribute("id", buttonInformation.option_name + "Label")
     optionCheckbox.setAttribute("type", "checkbox")
-    optionCheckbox.setAttribute("id", buttonInformation.option_name)
+    optionCheckbox.setAttribute("id", buttonInformation.option_name + "Checkbox")
     optionCheckbox.setAttribute("name", buttonInformation.option_name)
 
     optionLabel.innerText = buttonInformation.option_name;
@@ -88,6 +92,20 @@ async function CreateButton(buttonInformation) {
     parentContainer.appendChild(optionLabel);
     parentContainer.appendChild(optionCheckbox);
 }
+
+async function UpdateVoteDisplays() {
+    const { data, error } = await supabase.from(voteTable).select('option_name, votes').eq('lobby_id', lobbyCode);
+    for (const option of poll_options) {
+        let optionElement = FindElementInArray(data, option.option_name);
+
+        if (optionElement == null) {
+            return;
+        }
+
+        document.getElementById(option.option_name + "Label").innerText = option.option_name + ": " + optionElement.votes;
+    }
+}
+
 
 
 
@@ -100,4 +118,12 @@ function RandomInRange(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function FindElementInArray(array, element) {
+    for (arrayElement of array) {
+        if (arrayElement.includes(element)) {
+            return arrayElement;
+        }
+    }
 }
