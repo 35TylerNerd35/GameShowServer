@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Horror Show Polling</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="script.js"></script>
-</head>
-<body>
-  <h1 id="question">Make a choice...</h1>
-  <div id="options"></div>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Horror Show Polling</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js"></script>
+  </head>
+  <body>
+    <h1 id="question">Make a choice...</h1>
+    <div id="options"></div>
+
+    <form>
+      <label for="lobbyCode">Lobby Code:</label>
+      <input type="text" id="lobbyCode" name="lobbyCode" placeholder="Enter lobby code">
+      <button type="joinLobby">Join Lobby</button>
+    </form>
+  </body>
 </html>

@@ -11,7 +11,9 @@ const tableName = 'PollVotes'
 
 // Declare documents
 const optionsDiv = document.getElementById("options");
-const resultsDiv = document.getElementById("results");
+const lobbyCodeInpt = document.getElementById("lobbyCode");
+const joinLobbyBtn = document.getElementById("joinLobby");
+
 
 async function SetupButtons(optionTxt) {
     // Clear buttons
@@ -128,3 +130,9 @@ async function RefreshButtons() {
 }
 
 await RefreshButtons();
+joinLobbyBtn.onclick = async () => {
+    const lobbyCode = lobbyCodeInpt.value;
+    const { data, error } = await supabase.from('DeviceInformation').select('lobby_id').eq('is_host', true).eq('lobby_code', lobbyCode);
+    console.log(data);
+    console.log(error);
+}
