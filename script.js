@@ -122,6 +122,7 @@ function SetVote(newVoteCheckbox) {
 
     if (checkedOption != null && checkedOption.option_id !== undefined) {
         DisplayNewVote(checkedOption, -1)
+        document.getElementById(checkedOption.option_name + "Checkbox").checked = false;
     }
 
     // Remove checked and return if no new option to vote for
@@ -132,16 +133,12 @@ function SetVote(newVoteCheckbox) {
 
     // Vote for new option
     checkedOption = poll_options.find(element => element.option_id == newVoteCheckbox.getAttribute("option_id"));
-    console.log(newVoteCheckbox);
-    console.log(poll_options);
-    console.log(checkedOption);
     DisplayNewVote(checkedOption, 1);
 }
 
 function DisplayNewVote(option, increment) {
     // Grab elements of previously checked options
     const checkedLabel = document.getElementById(option.option_name + "Label");
-    const checkedCheckbox = document.getElementById(option.option_name + "Checkbox");
 
     // Find element in array
     const checkedInArray = poll_options.find(element => element.option_id == option.option_id);
@@ -150,7 +147,6 @@ function DisplayNewVote(option, increment) {
     // Update display
     poll_options[checkedIndex].votes += increment;
     checkedLabel.innerText = option.option_name + " (" + poll_options[checkedIndex].votes + ")";
-    checkedCheckbox.checked = false;
     
     // Update database
     supabase.from(voteTable).update({ votes : poll_options[checkedIndex].votes }).eq('option_name', option.option_name);
