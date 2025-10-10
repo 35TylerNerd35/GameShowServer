@@ -60,7 +60,7 @@ async function SetupButtons() {
     const { data, error } = await supabase.from(voteTable).select().eq('lobby_id', lobbyCode);
 
     // Clear current data
-    poll_options = [];
+    poll_options.length = 0;
     optionsDiv.innerHTML = "";
 
     // Keep track of and define row
