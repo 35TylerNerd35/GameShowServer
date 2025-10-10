@@ -16,7 +16,6 @@ const inPersonCheck = document.getElementById("isInPerson");
 const joinLobbyBtn = document.getElementById("joinLobby");
 
 const poll_options = [{option_id : 0, created_at : new Date(), option_name : "Option 1", votes : 0}];
-const test : {option_id : number, created_at : Date, option_name : string, votes : number};
 
 // Dynamic vars
 let lobbyCode;
