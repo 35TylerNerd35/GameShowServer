@@ -79,15 +79,10 @@ async function Setup() {
     }
 }
 
-async function SetupButtons(inLobbyCode) {
+async function SetupButtons() {
 
     // Don't run if not in a lobby
     if (!hasRegisteredDeviceID) {
-        return;
-    }
-
-    // Don't run if different lobby is being updated
-    if (inLobbyCode != null && inLobbyCode != lobbyCode) {
         return;
     }
 
@@ -201,7 +196,7 @@ supabase
     'postgres_changes',
     { event: 'DELETE', schema: 'public', table: voteTable },
     (payload) => {
-        console.log("DELERTE");
+        console.log("DELETE " + payload.old.option_name + " : " + lobbyCode);
         if (payload.old.lobby_id != lobbyCode) {
             return;
         }
@@ -225,6 +220,7 @@ supabase
     'postgres_changes',
     { event: 'INSERT', schema: 'public', table: voteTable },
     (payload) => {
+        console.log("INSERT " + payload.new.option_name + " : " + lobbyCode);
         if (payload.new.lobby_id != lobbyCode) {
             return;
         }
