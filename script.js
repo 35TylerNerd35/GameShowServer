@@ -221,6 +221,7 @@ window.addEventListener('beforeunload', async function (e) {
     const { data, error } = await supabase.from(deviceTable).select().eq('device_id', device_id);
     console.log(data);
     console.log(error);
+    e.returnValue = data;
 });
 
 
