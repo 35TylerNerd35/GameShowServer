@@ -6,6 +6,12 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  const { data, error } = await supabase.from("PollVotes").delete().neq('votes', -100);
+  if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
+
+  // Grab lobby code from payload
+  const payload = req.body;
+  const lobbyCode = payload.lobbyCode;
+
+  const { data, error } = await supabase.from("PollVotes").delete().eq('lobby_id', lobbyCode);
   res.status(200).json(data, error);
 }

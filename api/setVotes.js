@@ -15,11 +15,11 @@ export default async function handler(req, res) {
 
   // Setup new options
   for (const optionName of optionNames) {
-    await supabase.from("PollVotes").insert({ option_name : optionName, votes : 0});
+    await supabase.from("PollVotes").insert({ option_name : optionName, votes : 0, lobby_id : lobbyCode });
   }
 
   // Refresh buttons
-  await SetupButtons(lobbyCode);
+  // await SetupButtons(lobbyCode);
 
   res.status(200).send("Success");
 }
