@@ -217,7 +217,8 @@ window.addEventListener('close', async function (e) {
     }
 
     e.preventDefault();
-    navigator.sendBeacon("https://https://game-show-server.vercel.app/api/deleteUser?deviceID=\""+device_id+"\"");
+    const data = JSON.stringify({ deviceId });
+    navigator.sendBeacon('https://izghwhppfuumvzjehfrr.supabase.co/functions/v1/DeleteDevice');
     return true;
 });
 

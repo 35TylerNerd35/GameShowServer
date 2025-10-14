@@ -6,7 +6,7 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  // if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
+  if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
 
   // Grab lobby code from payload
   const payload = req.body;
