@@ -76,41 +76,6 @@ async function Setup() {
             }
         )
         .subscribe();
-
-        // Subscribe to row inserts
-        supabase
-        .channel('table-db-changes')
-        .on(
-            'postgres_changes',
-            { event: 'INSERT', schema: 'public', table: voteTable },
-            (payload) => {
-                if (payload.new.lobby_id != lobbyCode) {
-                    return;
-                }
-
-                poll_options.push(payload.new);
-                CreateButton(payload.new);
-            }
-        )
-        .subscribe();
-
-        // Subscribe to deletes
-        supabase
-        .channel('table-db-changes')
-        .on(
-            'postgres_changes',
-            { event: 'DELETE', schema: 'public', table: voteTable },
-            (payload) => {
-                console.log("DELERTE");
-                if (payload.old.lobby_id != lobbyCode) {
-                    return;
-                }
-
-                // Find element in array
-                console.log(payload.old);
-            }
-        )
-        .subscribe();
     }
 }
 
@@ -242,7 +207,30 @@ supabase
         }
 
         // Find element in array
-        console.log(payload.old);
+        const oldLobby = poll_options.find(element => element.option_id == payload.old.option_id);
+        const index = poll_options.indexOf(oldLobby);
+        document.getElementById(oldLobby.option_name + "Checkbox").remove();
+        document.getElementById(oldLobby.option_name + "Label").parentNode.remove();
+
+        // Remove from array
+        poll_options.splice(index, 1);
+    }
+)
+.subscribe();
+
+// Subscribe to row inserts
+supabase
+.channel('table-db-changes')
+.on(
+    'postgres_changes',
+    { event: 'INSERT', schema: 'public', table: voteTable },
+    (payload) => {
+        if (payload.new.lobby_id != lobbyCode) {
+            return;
+        }
+
+        poll_options.push(payload.new);
+        CreateButton(payload.new);
     }
 )
 .subscribe();
