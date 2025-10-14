@@ -186,65 +186,53 @@ async function DisplayNewVote(option, increment) {
 
 supabase
   .channel('table-db-changes')
-  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: voteTable }, handleRecordInserted)
-  .on('postgres_changes', { event: 'DELETE', schema: 'public', table: voteTable }, handleRecordDeleted)
+  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: voteTable }, HandleRecordInserted)
+  .on('postgres_changes', { event: 'DELETE', schema: 'public', table: voteTable }, HandleRecordDeleted)
+  .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: voteTable }, HandleRecordUpdated)
   .subscribe()
 
-function handleRecordInserted(params) {
-    console.log(params);
+function HandleRecordInserted(payload) {
+    console.log("INSERT " + payload.new.option_name + " : " + lobbyCode);
+    if (payload.new.lobby_id != lobbyCode) {
+        return;
+    }
+
+    poll_options.push(payload.new);
+    CreateButton(payload.new);
 }
 
-function handleRecordDeleted(params) {
-    console.log(params);
+function HandleRecordDeleted(payload) {
+    console.log("DELETE " + payload.old.option_name + " : " + lobbyCode);
+    if (payload.old.lobby_id != lobbyCode) {
+        return;
+    }
+
+    // Find element in array
+    const oldLobby = poll_options.find(element => element.option_id == payload.old.option_id);
+    const index = poll_options.indexOf(oldLobby);
+    document.getElementById(oldLobby.option_name + "Checkbox").remove();
+    document.getElementById(oldLobby.option_name + "Label").parentNode.remove();
+
+    // Remove from array
+    poll_options.splice(index, 1);
+}
+
+function HandleRecordUpdated(payload) {
+    if (payload.new.lobby_id != lobbyCode) {
+        return;
+    }
+
+    // Find element in array
+    const elementInArray = poll_options.find(element => element.option_id == payload.new.option_id);
+    const checkedIndex = poll_options.indexOf(elementInArray);
+
+    // Update votes
+    poll_options[checkedIndex].votes = payload.new.votes;
+    UpdateVoteDisplays();
 }
 
 
 Setup();
-
-// Subscribe to deletes
-// supabase
-// .channel('table-db-changes')
-// .on(
-//     'postgres_changes',
-//     { event: 'DELETE', schema: 'public', table: voteTable },
-//     (payload) => {
-//         console.log("DELETE " + payload.old.option_name + " : " + lobbyCode);
-//         if (payload.old.lobby_id != lobbyCode) {
-//             return;
-//         }
-
-//         // Find element in array
-//         const oldLobby = poll_options.find(element => element.option_id == payload.old.option_id);
-//         const index = poll_options.indexOf(oldLobby);
-//         document.getElementById(oldLobby.option_name + "Checkbox").remove();
-//         document.getElementById(oldLobby.option_name + "Label").parentNode.remove();
-
-//         // Remove from array
-//         poll_options.splice(index, 1);
-//     }
-// )
-// .subscribe();
-
-// // Subscribe to row inserts
-// supabase
-// .channel('table-db-changes')
-// .on(
-//     'postgres_changes',
-//     { event: 'INSERT', schema: 'public', table: voteTable },
-//     (payload) => {
-//         console.log("INSERT " + payload.new.option_name + " : " + lobbyCode);
-//         if (payload.new.lobby_id != lobbyCode) {
-//             return;
-//         }
-
-//         poll_options.push(payload.new);
-//         CreateButton(payload.new);
-//     }
-// )
-// .subscribe();
-
-
-
 
 
 function RandomInRange(min, max) {
