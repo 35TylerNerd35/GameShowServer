@@ -20,6 +20,7 @@ let hasRegisteredDeviceID = false;
 
 // Dynamic vars
 let lobbyCode;
+let device_id;
 let checkedOption;
 
 async function Setup() {
@@ -44,7 +45,7 @@ async function Setup() {
         }
 
         // Set new ID
-        let device_id = 0;
+        device_id = 0;
         while (devices.includes(device_id)) {
             device_id = RandomInRange(1, 1000000);
         }
@@ -162,6 +163,7 @@ async function DisplayNewVote(option, increment) {
 }
 
 
+
 supabase
   .channel('table-db-changes')
   .on('postgres_changes', { event: 'INSERT', schema: 'public', table: voteTable }, HandleRecordInserted)
@@ -207,6 +209,15 @@ function HandleRecordUpdated(payload) {
 
 
 Setup();
+
+
+window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+    console.log(e);
+});
+
+
+
 
 
 function RandomInRange(min, max) {
