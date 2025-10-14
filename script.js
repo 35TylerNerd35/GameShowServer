@@ -216,14 +216,14 @@ window.addEventListener('beforeunload', () => {
         return;
     }
 
-    const data = JSON.stringify({ deviceId });
+    const data = JSON.stringify({ device_id });
     navigator.sendBeacon('/api/deleteUser', data);
 });
 
 
 
 document.getElementById("Test").onclick = async () => {
-    const data = JSON.stringify({ deviceId });
+    const data = JSON.stringify({ device_id });
     const options = navigator.sendBeacon('/api/deleteUser', data);
     console.log(options);
 }
