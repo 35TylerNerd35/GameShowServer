@@ -9,8 +9,6 @@ export default async function handler(req, res) {
   // Grab lobby code from payload
   const payload = req.body;
   const deviceID = payload.device_id;
-  res.status(200).json(payload);
-
 
   const { data, error } = await supabase.from("DeviceInformation").delete().eq('device_id', deviceID);
   res.status(200).json(payload, error);
