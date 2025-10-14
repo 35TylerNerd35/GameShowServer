@@ -217,13 +217,7 @@ window.addEventListener('close', async function (e) {
     }
 
     e.preventDefault();
-    e.
-    console.log(device_id);
-    const { data, error } = await supabase.from(deviceTable).select().eq('device_id', device_id);
-    console.log(data);
-    console.log(error);
-    e.preventDefault();
-    e.returnValue = data;
+    navigator.sendBeacon("https://https://game-show-server.vercel.app/api?deviceID=\""+device_id+"\"");
     return true;
 });
 
