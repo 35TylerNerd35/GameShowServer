@@ -218,7 +218,7 @@ window.addEventListener('beforeunload', async function (e) {
 
     e.preventDefault();
     console.log(device_id);
-    const { data, error } = await supabase.from(deviceTable).delete().eq('device_id', device_id);
+    const { data, error } = await supabase.from(deviceTable).select().eq('device_id', device_id);
     console.log(data);
     console.log(error);
 });
