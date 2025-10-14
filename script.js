@@ -52,13 +52,10 @@ async function Setup() {
         // Register ID
         await supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
         hasRegisteredDeviceID = true;
-
-        window.addEventListener("event", (lobbyCode) => {
-            SetupButtons(lobbyCode);
-        });
         
         SetupButtons();
 
+        // Subscribe to row updates
         supabase
         .channel('table-db-changes')
         .on(
@@ -76,6 +73,40 @@ async function Setup() {
                 // Update votes
                 poll_options[checkedIndex].votes = payload.new.votes;
                 UpdateVoteDisplays();
+            }
+        )
+        .subscribe();
+
+        // Subscribe to row inserts
+        supabase
+        .channel('table-db-changes')
+        .on(
+            'postgres_changes',
+            { event: 'INSERT', schema: 'public', table: voteTable },
+            (payload) => {
+                if (payload.new.lobby_id != lobbyCode) {
+                    return;
+                }
+
+                poll_options.push(payload.new);
+                CreateButton(payload.new);
+            }
+        )
+        .subscribe();
+
+        // Subscribe to deletes
+        supabase
+        .channel('table-db-changes')
+        .on(
+            'postgres_changes',
+            { event: 'DELETE', schema: 'public', table: voteTable },
+            (payload) => {
+                if (payload.old.lobby_id != lobbyCode) {
+                    return;
+                }
+
+                // Find element in array
+                console.log(payload.old);
             }
         )
         .subscribe();

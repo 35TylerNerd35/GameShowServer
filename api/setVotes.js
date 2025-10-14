@@ -18,10 +18,5 @@ export default async function handler(req, res) {
     await supabase.from("PollVotes").insert({ option_name : optionName, votes : 0, lobby_id : lobbyCode });
   }
 
-  // Refresh buttons
-  // await SetupButtons(lobbyCode);
-  var event = new CustomEvent("event", { lobbyCode });
-  window.dispatchEvent(event);
-
   res.status(200).send("Success");
 }
