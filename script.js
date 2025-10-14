@@ -210,20 +210,24 @@ function HandleRecordUpdated(payload) {
 Setup();
 
 
-window.addEventListener('beforeunload', async function (e) {
+window.addEventListener('close', async function (e) {
 
     if (!hasRegisteredDeviceID) {
         return;
     }
 
     e.preventDefault();
+    e.
     console.log(device_id);
     const { data, error } = await supabase.from(deviceTable).select().eq('device_id', device_id);
     console.log(data);
     console.log(error);
     e.preventDefault();
     e.returnValue = data;
+    return true;
 });
+
+
 
 
 
