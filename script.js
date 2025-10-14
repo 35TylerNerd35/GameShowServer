@@ -224,7 +224,7 @@ window.addEventListener('beforeunload', () => {
 
 document.getElementById("Test").onclick = async () => {
     console.log(device_id)
-    const blob = new Blob([JSON.stringify({ deviceId })], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
     navigator.sendBeacon('/api/deleteUser', blob);
 }
 
