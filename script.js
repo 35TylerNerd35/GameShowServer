@@ -184,29 +184,19 @@ async function DisplayNewVote(option, increment) {
 }
 
 
-const channel = supabase
-    .channel('schema-db-changes')
-    .on(
-    'postgres_changes',
-    {
-        event: 'INSERT',
-        schema: 'public',
-    },
-    (payload) => console.log(payload)
-    )
-.subscribe()
+supabase
+  .channel('room1')
+  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'countries' }, handleRecordInserted)
+  .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'countries' }, handleRecordDeleted)
+  .subscribe()
 
-const channel2 = supabase
-  .channel('schema-db-changes')
-  .on(
-    'postgres_changes',
-    {
-      event: 'UPDATE',
-      schema: 'public',
-    },
-    (payload) => console.log(payload)
-  )
-.subscribe()
+async function handleRecordInserted(params) {
+    console.log(params);
+}
+
+async function handleRecordDeleted(params) {
+    console.log(params);
+}
 
 
 Setup();
