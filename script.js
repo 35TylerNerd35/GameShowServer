@@ -52,6 +52,10 @@ async function Setup() {
         // Register ID
         await supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
         hasRegisteredDeviceID = true;
+
+        window.addEventListener("event", (lobbyCode) => {
+            SetupButtons(lobbyCode);
+        });
         
         SetupButtons();
 

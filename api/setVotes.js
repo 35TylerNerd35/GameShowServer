@@ -20,6 +20,8 @@ export default async function handler(req, res) {
 
   // Refresh buttons
   // await SetupButtons(lobbyCode);
+  var event = new CustomEvent("event", { lobbyCode });
+  window.dispatchEvent(event);
 
   res.status(200).send("Success");
 }
