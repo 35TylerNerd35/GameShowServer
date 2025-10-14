@@ -210,16 +210,14 @@ function HandleRecordUpdated(payload) {
 Setup();
 
 
-window.addEventListener('close', async function (e) {
+window.addEventListener('beforeunload', () => {
 
     if (!hasRegisteredDeviceID) {
         return;
     }
 
-    e.preventDefault();
     const data = JSON.stringify({ deviceId });
-    navigator.sendBeacon('https://izghwhppfuumvzjehfrr.supabase.co/functions/v1/DeleteDevice');
-    return true;
+    navigator.sendBeacon('/api/deleteUser', data);
 });
 
 
