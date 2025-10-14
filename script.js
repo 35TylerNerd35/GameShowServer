@@ -216,17 +216,17 @@ window.addEventListener('beforeunload', () => {
         return;
     }
 
-    const data = JSON.stringify({ device_id });
-    navigator.sendBeacon('/api/deleteUser', data);
+    const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
+    navigator.sendBeacon('/api/deleteUser', blob);
 });
 
 
 
-document.getElementById("Test").onclick = async () => {
-    console.log(device_id)
-    const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
-    navigator.sendBeacon('/api/deleteUser', blob);
-}
+// document.getElementById("Test").onclick = async () => {
+//     console.log(device_id)
+//     const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
+//     navigator.sendBeacon('/api/deleteUser', blob);
+// }
 
 
 
