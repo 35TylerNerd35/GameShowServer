@@ -101,6 +101,7 @@ async function Setup() {
             'postgres_changes',
             { event: 'DELETE', schema: 'public', table: voteTable },
             (payload) => {
+                console.log("DELERTE");
                 if (payload.old.lobby_id != lobbyCode) {
                     return;
                 }
