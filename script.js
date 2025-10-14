@@ -212,8 +212,14 @@ Setup();
 
 
 window.addEventListener('beforeunload', function (e) {
+
+    if (!hasRegisteredDeviceID) {
+        return;
+    }
+
     e.preventDefault();
-    console.log(e);
+    console.log(device_id);
+    supabase.from(deviceTable).delete().eq('device_id', device_id);
 });
 
 
