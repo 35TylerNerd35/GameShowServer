@@ -8,8 +8,8 @@ const supabase = createClient(
 export default async function handler(req, res) {
   // Grab lobby code from payload
   const payload = req.body;
-  const {deviceID} = req.body;
+  const {device_id} = req.body;
 
-  const { data, error } = await supabase.from("DeviceInformation").select("*").eq('device_id', deviceID);
+  const { data, error } = await supabase.from("DeviceInformation").select("*").eq('device_id', device_id);
   res.status(200).json(data, error);
 }
