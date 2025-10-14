@@ -54,28 +54,6 @@ async function Setup() {
         hasRegisteredDeviceID = true;
         
         SetupButtons();
-
-        // Subscribe to row updates
-        // supabase
-        // .channel('table-db-changes')
-        // .on(
-        //     'postgres_changes',
-        //     { event: 'UPDATE', schema: 'public', table: voteTable },
-        //     (payload) => {
-        //         if (payload.new.lobby_id != lobbyCode) {
-        //             return;
-        //         }
-
-        //         // Find element in array
-        //         const elementInArray = poll_options.find(element => element.option_id == payload.new.option_id);
-        //         const checkedIndex = poll_options.indexOf(elementInArray);
-
-        //         // Update votes
-        //         poll_options[checkedIndex].votes = payload.new.votes;
-        //         UpdateVoteDisplays();
-        //     }
-        // )
-        // .subscribe();
     }
 }
 
@@ -192,29 +170,25 @@ supabase
   .subscribe()
 
 function HandleRecordInserted(payload) {
-    console.log("INSERT " + payload.new.option_name + " : " + lobbyCode);
     if (payload.new.lobby_id != lobbyCode) {
         return;
     }
 
-    poll_options.push(payload.new);
-    CreateButton(payload.new);
+    SetupButtons();
 }
 
 function HandleRecordDeleted(payload) {
-    console.log("DELETE " + payload.old.option_name + " : " + lobbyCode);
     if (payload.old.lobby_id != lobbyCode) {
         return;
     }
 
-    // Find element in array
+    // Find and remove element in array
     const oldLobby = poll_options.find(element => element.option_id == payload.old.option_id);
     const index = poll_options.indexOf(oldLobby);
-    document.getElementById(oldLobby.option_name + "Checkbox").remove();
-    document.getElementById(oldLobby.option_name + "Label").parentNode.remove();
-
-    // Remove from array
     poll_options.splice(index, 1);
+
+    // Remove from document
+    document.getElementById(oldLobby.option_name + "Label").parentNode.remove();
 }
 
 function HandleRecordUpdated(payload) {
