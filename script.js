@@ -185,7 +185,7 @@ async function DisplayNewVote(option, increment) {
 
 
 supabase
-  .channel('room1')
+  .channel('table-db-changes')
   .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'countries' }, handleRecordInserted)
   .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'countries' }, handleRecordDeleted)
   .subscribe()
