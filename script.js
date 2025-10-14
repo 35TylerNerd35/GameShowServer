@@ -229,6 +229,24 @@ async function DisplayNewVote(option, increment) {
 
 Setup();
 
+// Subscribe to deletes
+supabase
+.channel('table-db-changes')
+.on(
+    'postgres_changes',
+    { event: 'DELETE', schema: 'public', table: voteTable },
+    (payload) => {
+        console.log("DELERTE");
+        if (payload.old.lobby_id != lobbyCode) {
+            return;
+        }
+
+        // Find element in array
+        console.log(payload.old);
+    }
+)
+.subscribe();
+
 
 
 function RandomInRange(min, max) {
