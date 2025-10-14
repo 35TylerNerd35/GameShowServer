@@ -223,9 +223,9 @@ window.addEventListener('beforeunload', () => {
 
 
 document.getElementById("Test").onclick = async () => {
+    console.log(device_id)
     const data = JSON.stringify({ device_id });
-    const options = navigator.sendBeacon('/api/deleteUser', data);
-    console.log(options);
+    navigator.sendBeacon('/api/deleteUser', data);
 }
 
 

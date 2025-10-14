@@ -10,6 +10,6 @@ export default async function handler(req, res) {
   const payload = req.body;
   const deviceID = payload.device_id;
 
-  const { data, error } = await supabase.from("DeviceInformation").delete().eq('device_id', deviceID);
+  const { data, error } = await supabase.from("DeviceInformation").select(*).eq('device_id', deviceID);
   res.status(200).json(data, error);
 }
