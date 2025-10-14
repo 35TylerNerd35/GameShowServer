@@ -217,7 +217,7 @@ window.addEventListener('close', async function (e) {
     }
 
     e.preventDefault();
-    navigator.sendBeacon("https://https://game-show-server.vercel.app/api?deviceID=\""+device_id+"\"");
+    navigator.sendBeacon("https://https://game-show-server.vercel.app/api/deleteUser?deviceID=\""+device_id+"\"");
     return true;
 });
 
