@@ -56,26 +56,26 @@ async function Setup() {
         SetupButtons();
 
         // Subscribe to row updates
-        supabase
-        .channel('table-db-changes')
-        .on(
-            'postgres_changes',
-            { event: 'UPDATE', schema: 'public', table: voteTable },
-            (payload) => {
-                if (payload.new.lobby_id != lobbyCode) {
-                    return;
-                }
+        // supabase
+        // .channel('table-db-changes')
+        // .on(
+        //     'postgres_changes',
+        //     { event: 'UPDATE', schema: 'public', table: voteTable },
+        //     (payload) => {
+        //         if (payload.new.lobby_id != lobbyCode) {
+        //             return;
+        //         }
 
-                // Find element in array
-                const elementInArray = poll_options.find(element => element.option_id == payload.new.option_id);
-                const checkedIndex = poll_options.indexOf(elementInArray);
+        //         // Find element in array
+        //         const elementInArray = poll_options.find(element => element.option_id == payload.new.option_id);
+        //         const checkedIndex = poll_options.indexOf(elementInArray);
 
-                // Update votes
-                poll_options[checkedIndex].votes = payload.new.votes;
-                UpdateVoteDisplays();
-            }
-        )
-        .subscribe();
+        //         // Update votes
+        //         poll_options[checkedIndex].votes = payload.new.votes;
+        //         UpdateVoteDisplays();
+        //     }
+        // )
+        // .subscribe();
     }
 }
 
@@ -190,11 +190,11 @@ supabase
   .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'countries' }, handleRecordDeleted)
   .subscribe()
 
-async function handleRecordInserted(params) {
+function handleRecordInserted(params) {
     console.log(params);
 }
 
-async function handleRecordDeleted(params) {
+function handleRecordDeleted(params) {
     console.log(params);
 }
 
