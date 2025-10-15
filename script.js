@@ -212,27 +212,20 @@ Setup();
 
 window.addEventListener('beforeunload', () => {
 
-    if (!hasRegisteredDeviceID) {
-        return;
-    }
-
-    const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
-    navigator.sendBeacon('/api/deleteUser', blob);
+    LeaveLobby();
 });
 
 
 
 document.getElementById("leaveLobby").onclick = async () => {
-
-    // Leave Lobby
-    const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
-    navigator.sendBeacon('/api/deleteUser', blob);
-    device_id = null;
-    lobbyCode = null;
-    optionsDiv.innerHTML = "";
+    LeaveLobby();
 }
 
 function LeaveLobby() {
+
+    if (!hasRegisteredDeviceID) {
+        return;
+    }
 
     // Leave Lobby
     const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
