@@ -11,7 +11,8 @@ export default async function handler(req, res) {
   // Grab lobby code from payload
   const payload = req.body;
   const lobbyCode = payload.lobby_id;
+  const deviceId = payload.device_id;
   
-  const { data, error } = await supabase.from("DeviceInformation").insert({ device_id : 0, lobby_id : lobbyCode, is_host : true, is_in_person : false });
+  const { data, error } = await supabase.from("DeviceInformation").insert({ device_id : deviceId, lobby_id : lobbyCode, is_host : true, is_in_person : false });
   res.status(200).json(data[0], error);
 }
