@@ -46,7 +46,7 @@ async function Setup() {
 
         // Set new ID
         device_id = 0;
-        while (devices.includes(device_id)) {
+        while (devices.includes(device_id) && device_id == 0) {
             device_id = RandomInRange(1, 1000000);
         }
 
@@ -222,11 +222,34 @@ window.addEventListener('beforeunload', () => {
 
 
 
-// document.getElementById("Test").onclick = async () => {
-//     console.log(device_id)
-//     const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
-//     navigator.sendBeacon('/api/deleteUser', blob);
-// }
+document.getElementById("leaveLobby").onclick = async () => {
+
+    // Leave Lobby
+    const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
+    navigator.sendBeacon('/api/deleteUser', blob);
+    device_id = null;
+    lobbyCode = null;
+    optionsDiv.innerHTML = "";
+}
+
+function LeaveLobby() {
+
+    // Leave Lobby
+    const blob = new Blob([JSON.stringify({ device_id })], { type: 'application/json' });
+    navigator.sendBeacon('/api/deleteUser', blob);
+
+    // Remove Vote
+    const option_id = checkedOption.option_id;
+    const votes = checkedOption.votes;
+    const voteBlob = new Blob([JSON.stringify({option_id, votes})], {type: 'application/json'});
+    navigator.sendBeacon('/api/removeVote', voteBlob);
+
+    // Clear data
+    device_id = null;
+    lobbyCode = null;
+    optionsDiv.innerHTML = "";
+    checkedOption = null;
+}
 
 
 
