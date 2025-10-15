@@ -9,14 +9,22 @@ export default async function handler(req, res) {
   if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
 
   // Grab names from payload
+  // const payload = req.body;
+  // const lobbyCode = payload.lobby_id;
+  // const optionNames = payload.option_name;
+
   const payload = req.body;
-  const lobbyCode = payload.lobbyCode;
-  const optionNames = payload.optionNames;
+  const rows = payload.rows;
+
+  for (const row of rows) {
+    await supabase.from("PollVotes").insert({option_name : row.option_name, votes: 0, lobby_id : row.lobby_id});
+  }
+
 
   // Setup new options
-  for (const optionName of optionNames) {
-    await supabase.from("PollVotes").insert({ option_name : optionName, votes : 0, lobby_id : lobbyCode });
-  }
+  // for (const optionName of optionNames) {
+  //   await supabase.from("PollVotes").insert({ option_name : optionName, votes : 0, lobby_id : lobbyCode });
+  // }
 
   res.status(200).send("Success");
 }

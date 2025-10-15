@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   // Grab lobby code from payload
   const payload = req.body;
-  const lobbyCode = payload.lobbyCode;
+  const lobbyCode = payload.lobby_id;
   
   const { data, error } = await supabase.from("PollVotes").select('option_name, votes').eq('lobby_id', lobbyCode).order('votes', { ascending: false });
   res.status(200).json(data[0], error);
