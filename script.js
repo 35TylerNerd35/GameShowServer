@@ -242,6 +242,7 @@ function LeaveLobby() {
     lobbyCode = null;
     optionsDiv.innerHTML = "";
     checkedOption = null;
+    hasRegisteredDeviceID = false;
 }
 
 
