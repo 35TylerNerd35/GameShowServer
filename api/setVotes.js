@@ -13,18 +13,20 @@ export default async function handler(req, res) {
   // const lobbyCode = payload.lobby_id;
   // const optionNames = payload.option_name;
 
+  
+  // Setup new options
+  // for (const optionName of optionNames) {
+  //   await supabase.from("PollVotes").insert({ option_name : optionName, votes : 0, lobby_id : lobbyCode });
+  // }
+
+  // New method
+
   const payload = req.body;
   const rows = payload.rows;
 
   for (const row of rows) {
     await supabase.from("PollVotes").insert({option_name : row.option_name, votes: 0, lobby_id : row.lobby_id});
   }
-
-
-  // Setup new options
-  // for (const optionName of optionNames) {
-  //   await supabase.from("PollVotes").insert({ option_name : optionName, votes : 0, lobby_id : lobbyCode });
-  // }
 
   res.status(200).send("Success");
 }
