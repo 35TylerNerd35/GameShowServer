@@ -235,7 +235,7 @@ function LeaveLobby() {
     const option_id = checkedOption.option_id;
     const votes = checkedOption.votes;
     const voteBlob = new Blob([JSON.stringify({option_id, votes})], {type: 'application/json'});
-    navigator.sendBeacon('/api/removeVote', voteBlob);
+    navigator.sendBeacon('/api/votes/removeVote', voteBlob);
 
     // Clear data
     device_id = null;
