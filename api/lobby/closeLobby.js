@@ -16,5 +16,5 @@ export default async function handler(req, res) {
     if (error) console.error(error)
     else console.log(data)
 
-    res.status(200).json(data);
+    res.status(200).json(payload);
 }
