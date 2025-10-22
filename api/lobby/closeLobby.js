@@ -12,9 +12,9 @@ export default async function handler(req, res) {
   const payload = req.body;
   const lobbyCode = payload.lobby_id;
   
-  let { data, error } = await supabase.rpc('CloseLobby', {lobbyCode});
+  let { data, error } = await supabase.rpc('CloseLobby', lobbyCode);
     if (error) console.error(error)
     else console.log(data)
 
-    res.status(200).json(payload);
+    res.status(200).json(lobbyCode);
 }
