@@ -11,10 +11,7 @@ export default async function handler(req, res) {
   // Grab lobby code from payload
   const payload = req.body;
   const lobbyCode = payload.lobby_id;
-  
-  let { data, error } = await supabase.rpc('CloseLobby', {"lobbyid" : lobbyCode});
-    if (error) console.error(error)
-    else console.log(data)
 
-    res.status(200).json(lobbyCode);
+  const { data, error } = await supabase.from("DeviceInformation").delete().eq('lobby_id', lobbyCode);
+  res.status(200).json(data, error);
 }
