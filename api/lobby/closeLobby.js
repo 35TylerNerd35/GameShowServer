@@ -6,7 +6,7 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-//   if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
+  if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
 
   // Grab lobby code from payload
   const payload = req.body;
@@ -15,4 +15,6 @@ export default async function handler(req, res) {
   let { data, error } = await supabase.rpc('CloseLobby', {lobbyCode});
     if (error) console.error(error)
     else console.log(data)
+
+    res.status(200).json(data);
 }
