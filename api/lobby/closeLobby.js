@@ -13,5 +13,6 @@ export default async function handler(req, res) {
   const lobbyCode = payload.lobby_id;
 
   const { data, error } = await supabase.from("DeviceInformation").delete().eq('lobby_id', lobbyCode);
+  const {dataVotes, errorVotes} = await supabase.from("PollVotes").delete().eq('lobby_id', lobbyCode);
   res.status(200).json(data, error);
 }
