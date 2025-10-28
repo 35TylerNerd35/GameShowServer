@@ -7,10 +7,9 @@ const supabase = createClient(
 
 export default async function handler(req, res) {
   // Grab lobby code from payload
-  const payload = req.body;
-  const {table_name, method, params} = req.body;
+  let {table_name, method, params} = req.body;
 
-  const command = "await supabase.from(`";
+  let command = "await supabase.from(`";
   command += table_name;
   command += "`.";
   command += method;
