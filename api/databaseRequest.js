@@ -18,5 +18,5 @@ export default async function handler(req, res) {
   command += params;
 
   const { data, error } = new Function(command);
-  res.status(200).json(data, error);
+  res.status(200).json(data, command, error);
 }
