@@ -13,8 +13,8 @@ export default async function handler(req, res) {
   const lobbyCode = payload.lobby_id;
   
   const { data, error } = await supabase.from("PollVotes").select('option_name, votes').eq('lobby_id', lobbyCode).order('votes', { ascending: false });
-  let returnString = "{\"rows\" : ";
-  returnString += data;
+  let returnString = `{"rows" : `;
+  returnString += JSON.stringify(data);
   returnString += "}"
   res.status(200).json(returnString, error);
   
