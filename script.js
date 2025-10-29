@@ -168,6 +168,7 @@ supabase
   .on('postgres_changes', { event: 'INSERT', schema: 'public', table: voteTable }, HandleRecordInserted)
   .on('postgres_changes', { event: 'DELETE', schema: 'public', table: voteTable }, HandleRecordDeleted)
   .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: voteTable }, HandleRecordUpdated)
+  .on('postgres_changes', {event: 'DELETE', schema: 'public', table: deviceTable}, HandleDeviceDeleted)
   .subscribe()
 
 function HandleRecordInserted(payload) {
@@ -190,6 +191,18 @@ function HandleRecordDeleted(payload) {
 
     // Remove from document
     document.getElementById(oldLobby.option_name + "Label").parentNode.remove();
+}
+
+function HandleDeviceDeleted(payload) {
+    if (payload.old.lobby_id != lobbyCode) {
+        return;
+    }
+
+    if (!payload.old.is_host) {
+        return;
+    }
+
+    location.reload();
 }
 
 function HandleRecordUpdated(payload) {
