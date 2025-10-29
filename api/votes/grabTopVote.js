@@ -15,5 +15,5 @@ export default async function handler(req, res) {
   const { data, error } = await supabase.from("PollVotes").select('option_name, votes').eq('lobby_id', lobbyCode).order('votes', { ascending: false });
   let dataArray = [data[0], data[1], data[2]];
   res.status(200).json(dataArray, error);
-  
+   
 }
