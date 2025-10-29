@@ -16,6 +16,6 @@ export default async function handler(req, res) {
   let returnString = `{"rows" : `;
   returnString += JSON.stringify(data);
   returnString += "}"
-  res.status(200).json(returnString, error);
+  res.status(200).json(data[0], error);
   
 }
