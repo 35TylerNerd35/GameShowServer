@@ -11,5 +11,6 @@ export default async function handler(req, res) {
   const {option_id, votes} = req.body;
 
   const { data, error } = await supabase.from("PollVotes").update({ votes : votes - 1 }).eq('option_id', option_id);
-  res.status(200).json(data, error);
+  const length = data.length;
+  res.status(200).json(length, error);
 }
