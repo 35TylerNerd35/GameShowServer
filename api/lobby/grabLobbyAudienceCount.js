@@ -13,6 +13,6 @@ export default async function handler(req, res) {
   const lobbyCode = payload.lobby_id;
   
   const { data, error } = await supabase.from("DeviceInformation").select("*").eq('lobby_id', lobbyCode);
-  const length = {int : data.length};
+  const length = {int : data.length - 1};
   res.status(200).json(length, error);
 }
