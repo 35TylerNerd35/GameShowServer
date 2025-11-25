@@ -46,13 +46,16 @@ async function Setup() {
 
         // Set new ID
         device_id = 0;
-        while (devices.includes(device_id) && device_id == 0) {
+        while (devices.includes(device_id) || device_id == 0) {
             device_id = RandomInRange(1, 1000000);
         }
 
         // Register ID
         await supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
         hasRegisteredDeviceID = true;
+
+        // Hide join info
+        document.getElementById("JoinInformation").style.visibility = "hidden";
         
         SetupButtons();
     }
