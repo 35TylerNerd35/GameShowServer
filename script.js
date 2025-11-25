@@ -55,7 +55,7 @@ async function Setup() {
         hasRegisteredDeviceID = true;
 
         // Hide join info
-        document.getElementById("JoinInformation").style.visibility = "hidden";
+        document.getElementById("JoinInformation").innerHTML = "";
         
         SetupButtons();
     }
