@@ -14,8 +14,6 @@ export default async function handler(req, res) {
   const lobbyCode = 0;
   
   const { data, error } = await supabase.from("ToggleTable").select("*").eq('lobby_id', lobbyCode);
-  const { delData, delError } = await supabase.from("ToggleTable").update({toggle_id : null}).eq('lobby_id', lobbyCode);
-
-  const rows = {rows : data};
-  res.status(200).json(rows, error, delData, delError);
+  await supabase.from("ToggleTable").update({toggle_id : null}).eq('lobby_id', lobbyCode);
+  res.status(200).json({rows : data});
 }
