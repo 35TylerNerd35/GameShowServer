@@ -6,12 +6,15 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  // if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
+  if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
 
-  // // Grab lobby code from payload
-  // const payload = req.body;
-  // const lobbyCode = payload.lobby_id;
-  const lobbyCode = 0;
+  // -- PROD
+  // -- Grab lobby code from payload
+  const payload = req.body;
+  const lobbyCode = payload.lobby_id;
+
+  // -- TESTING
+  // const lobbyCode = 0;
   
   const { data, error } = await supabase.from("ToggleTable").select("*").eq('lobby_id', lobbyCode);
   await supabase.from("ToggleTable").update({toggle_id : null}).eq('lobby_id', lobbyCode);
