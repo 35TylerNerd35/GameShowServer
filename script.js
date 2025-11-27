@@ -94,7 +94,7 @@ async function SetupButtons() {
 async function OnToggleButtonClicked(toggleId)
 {
     timestamp = new Date();
-    await supabase.from(toggleTable).update({toggle_id : toggleId}, {timestamp : new Date()}).eq('device_id', device_id)
+    await supabase.from(toggleTable).update({toggle_id : toggleId, timestamp : new Date()}).eq('device_id', device_id)
 }
 
 function CreateButton(buttonInformation) {
