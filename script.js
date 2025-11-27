@@ -23,7 +23,7 @@ let hasRegisteredDeviceID = false;
 let lobbyCode;
 let device_id;
 let checkedOption;
-const timestamp = new Date()
+let timestamp = new Date()
 
 async function Setup() {
     
