@@ -8,6 +8,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // Declare vars
 const voteTable = 'PollVotes'
 const deviceTable = 'DeviceInformation'
+const toggleTable = `ToggleTable`
 
 // Declare documents
 const optionsDiv = document.getElementById("options");
@@ -22,6 +23,7 @@ let hasRegisteredDeviceID = false;
 let lobbyCode;
 let device_id;
 let checkedOption;
+const timestamp = new Date()
 
 async function Setup() {
     
@@ -87,6 +89,11 @@ async function SetupButtons() {
     }
 
     UpdateVoteDisplays();
+}
+
+async function OnToggleButtonClicked(toggleId)
+{
+    await supabase.from(toggleTable).update({toggle_id : toggleId}, {timestamp : new Date()});
 }
 
 function CreateButton(buttonInformation) {
