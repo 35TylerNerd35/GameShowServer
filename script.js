@@ -98,7 +98,8 @@ async function OnToggleButtonClicked(toggleId)
 
     if (currentUnixTimestamp < targetUnixTimestamp)
     {
-        window.alert("TOGGLE ACTION IN COOLDOWN:\n" + targetUnixTimestamp - currentUnixTimestamp + " seconds left");
+        // window.alert("TOGGLE ACTION IN COOLDOWN:\n" + targetUnixTimestamp - currentUnixTimestamp + " seconds left");
+        window.alert(`TOGGLE ACTION IN COOLDOWN:\n${targetUnixTimestamp - currentUnixTimestamp} seconds left.`);
         return;
     }
 
