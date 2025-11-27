@@ -98,12 +98,12 @@ async function OnToggleButtonClicked(toggleId)
 
     if (currentUnixTimestamp < targetUnixTimestamp)
     {
-        window.alert(targetUnixTimestamp - currentUnixTimestamp + " seconds left");
+        window.alert("TOGGLE ACTION IN COOLDOWN:\n" + targetUnixTimestamp - currentUnixTimestamp + " seconds left");
         return;
     }
 
     timestamp = currentUnixTimestamp;
-    await supabase.from(toggleTable).update({toggle_id : toggleId, timestamp : currentUnixTimestamp}).eq('device_id', device_id)
+    await supabase.from(toggleTable).update({toggle_id : toggleId, timestamp : new Date()}).eq('device_id', device_id)
 }
 
 function CreateButton(buttonInformation) {
