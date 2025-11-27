@@ -8,7 +8,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // Declare vars
 const voteTable = 'PollVotes'
 const deviceTable = 'DeviceInformation'
-const toggleTable = `ToggleTable`
+const toggleTable = 'ToggleTable'
 
 // Declare documents
 const optionsDiv = document.getElementById("options");
