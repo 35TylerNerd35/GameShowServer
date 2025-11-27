@@ -70,10 +70,10 @@ async function SetupButtons() {
         return;
     }
 
-    document.getElementById("Button1A").onclick = async () => OnToggleButtonClicked("1A");
-    document.getElementById("Button2A").onclick = async () => OnToggleButtonClicked("2A");
-    document.getElementById("Button3A").onclick = async () => OnToggleButtonClicked("3A");
-    document.getElementById("Button4A").onclick = async () => OnToggleButtonClicked("4A");
+    document.getElementById("Button1A").onclick = async () => await OnToggleButtonClicked("1A");
+    document.getElementById("Button2A").onclick = async () => await OnToggleButtonClicked("2A");
+    document.getElementById("Button3A").onclick = async () => await OnToggleButtonClicked("3A");
+    document.getElementById("Button4A").onclick = async () => await OnToggleButtonClicked("4A");
 
     // Grab database
     const { data, error } = await supabase.from(voteTable).select().eq('lobby_id', lobbyCode);
