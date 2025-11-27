@@ -23,7 +23,7 @@ let hasRegisteredDeviceID = false;
 let lobbyCode;
 let device_id;
 let checkedOption;
-let timestamp = Math.floor(date.getTime() / 1000);
+let timestamp = Math.floor(new Date().getTime() / 1000);
 
 async function Setup() {
     
@@ -93,7 +93,7 @@ async function SetupButtons() {
 
 async function OnToggleButtonClicked(toggleId)
 {
-    const currentUnixTimestamp = Math.floor(date.getTime() / 1000);
+    const currentUnixTimestamp = Math.floor(new Date().getTime() / 1000);
     const targetUnixTimestamp = timestamp + 30;
 
     if (currentUnixTimestamp < targetUnixTimestamp)
