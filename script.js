@@ -23,7 +23,7 @@ let hasRegisteredDeviceID = false;
 let lobbyCode;
 let device_id;
 let checkedOption;
-let timestamp = new Date()
+let timestamp = Math.floor(date.getTime() / 1000);
 
 async function Setup() {
     
@@ -93,8 +93,17 @@ async function SetupButtons() {
 
 async function OnToggleButtonClicked(toggleId)
 {
-    timestamp = new Date();
-    await supabase.from(toggleTable).update({toggle_id : toggleId, timestamp : new Date()}).eq('device_id', device_id)
+    const currentUnixTimestamp = Math.floor(date.getTime() / 1000);
+    const targetUnixTimestamp = timestamp + 30;
+
+    if (currentUnixTimestamp < targetUnixTimestamp)
+    {
+        window.alert(targetUnixTimestamp - currentUnixTimestamp + " seconds left");
+        return;
+    }
+
+    timestamp = currentUnixTimestamp;
+    await supabase.from(toggleTable).update({toggle_id : toggleId, timestamp : currentUnixTimestamp}).eq('device_id', device_id)
 }
 
 function CreateButton(buttonInformation) {
