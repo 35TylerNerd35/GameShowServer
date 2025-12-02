@@ -60,6 +60,8 @@ async function Setup() {
         // Hide join info
         document.getElementById("JoinInformation").innerHTML = "";
         document.getElementById("Doors").style.visibility = "visible";
+
+        document.getElementById("leaveLobby").onclick = () => {location.reload(true);}
         
         SetupButtons();
     }
