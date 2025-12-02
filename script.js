@@ -71,13 +71,20 @@ async function SetupButtons() {
     }
 
     // Grab doors
-    let doorParent = document.getElementById("DOORS")
+    let doorParent = document.getElementById("Door0")
     let children = doorParent.children;
+    let doorParent1 = document.getElementById("Door1")
+    let children1 = doorParent1.children;
 
     // Assign button click for doors
     for (let i = 0; i < children.length; i++) {
         let id = children[i].getAttribute('id');
         children[i].onclick = async () => await OnToggleButtonClicked(id);
+    }
+    // Assign button click for doors
+    for (let i = 0; i < children1.length; i++) {
+        let id = children1[i].getAttribute('id');
+        children1[i].onclick = async () => await OnToggleButtonClicked(id);
     }
 
     // Grab database
