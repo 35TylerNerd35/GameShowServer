@@ -81,7 +81,7 @@ async function SetupButtons() {
     for (let i = 0; i < children.length; i++) {
         console.log(children[i]);
         let id = children[i].getAttribute('id');
-        children[i].onchange = async () => await OnToggleButtonClicked(id);
+        children[i].onclick = async () => await OnToggleButtonClicked(id);
     }
 
     // Grab database
