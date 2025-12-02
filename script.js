@@ -54,14 +54,14 @@ async function Setup() {
         }
 
         // Register ID
-        await supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : inPersonCheck.checked });
+        await supabase.from(deviceTable).insert({ device_id : device_id, lobby_id : lobbyCode, is_host : false, is_in_person : false });
         hasRegisteredDeviceID = true;
 
         // Hide join info
         document.getElementById("JoinInformation").innerHTML = "";
         document.getElementById("Doors").style.visibility = "visible";
 
-        document.getElementById("leaveLobby").onclick = () => {location.reload(true);}
+        document.getElementById("leaveLobby").onclick = () => {location.reload(true); return false;}
         
         SetupButtons();
     }
@@ -244,7 +244,8 @@ function HandleDeviceDeleted(payload) {
         return;
     }
 
-    location.reload();
+    location.reload(true);
+    return false;
 }
 
 function HandleRecordUpdated(payload) {
