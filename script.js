@@ -70,16 +70,12 @@ async function SetupButtons() {
         return;
     }
 
-    // document.getElementById("Button1A").onclick = async () => await OnToggleButtonClicked("1A");
-    // document.getElementById("Button2A").onclick = async () => await OnToggleButtonClicked("2A");
-    // document.getElementById("Button3A").onclick = async () => await OnToggleButtonClicked("3A");
-    // document.getElementById("Button4A").onclick = async () => await OnToggleButtonClicked("4A");
-    
+    // Grab doors
     let doorParent = document.getElementById("DOORS")
     let children = doorParent.children;
 
+    // Assign button click for doors
     for (let i = 0; i < children.length; i++) {
-        console.log(children[i]);
         let id = children[i].getAttribute('id');
         children[i].onclick = async () => await OnToggleButtonClicked(id);
     }
