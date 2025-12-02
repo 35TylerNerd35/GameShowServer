@@ -78,10 +78,10 @@ async function SetupButtons() {
     let doorParent = document.getElementById("DOORS")
     let children = doorParent.children;
 
-    children.forEach(element => {
+    for (let i = 0; i < children.length; i++) {
         let id = element.getAttribute('id');
         element.onchange = async () => await OnToggleButtonClicked(id);
-    });
+    }
 
     // Grab database
     const { data, error } = await supabase.from(voteTable).select().eq('lobby_id', lobbyCode);
