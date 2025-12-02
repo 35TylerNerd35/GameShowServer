@@ -70,10 +70,18 @@ async function SetupButtons() {
         return;
     }
 
-    document.getElementById("Button1A").onclick = async () => await OnToggleButtonClicked("1A");
-    document.getElementById("Button2A").onclick = async () => await OnToggleButtonClicked("2A");
-    document.getElementById("Button3A").onclick = async () => await OnToggleButtonClicked("3A");
-    document.getElementById("Button4A").onclick = async () => await OnToggleButtonClicked("4A");
+    // document.getElementById("Button1A").onclick = async () => await OnToggleButtonClicked("1A");
+    // document.getElementById("Button2A").onclick = async () => await OnToggleButtonClicked("2A");
+    // document.getElementById("Button3A").onclick = async () => await OnToggleButtonClicked("3A");
+    // document.getElementById("Button4A").onclick = async () => await OnToggleButtonClicked("4A");
+    
+    let doorParent = document.getElementById("DOORS")
+    let children = doorParent.children;
+
+    children.forEach(element => {
+        let id = element.getAttribute('id');
+        element.onchange = async () => await OnToggleButtonClicked(id);
+    });
 
     // Grab database
     const { data, error } = await supabase.from(voteTable).select().eq('lobby_id', lobbyCode);
