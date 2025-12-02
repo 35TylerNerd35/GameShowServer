@@ -79,6 +79,7 @@ async function SetupButtons() {
     let children = doorParent.children;
 
     for (let i = 0; i < children.length; i++) {
+        console.log(children[i]);
         let id = children[i].getAttribute('id');
         children[i].onchange = async () => await OnToggleButtonClicked(id);
     }
