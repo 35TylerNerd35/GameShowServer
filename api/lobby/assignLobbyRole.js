@@ -6,28 +6,25 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-    // if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
+    if (req.method != "POST") return res.status(405).send("Method not allowed, please use POST");
 
     // Grab lobby code from payload
     const payload = req.body;
     const lobbyCode = payload.lobby_id;
 
     // Grab connected devices
-    const { data, error } = await supabase.from("DeviceInformation").select('*').eq('lobby_id', lobbyCode);
+    const { data, error } = await supabase.from("DeviceInformation").select('*').eq('lobby_id', lobbyCode).eq("is_host", false);
 
     // Grab number of helpers
     let num = data.length;
-    let numHelpers = Math.floor(data.length/10) + 1;
+    let numHelpers = Math.floor(num/10) + 1;
 
     for (let index = 0; index < numHelpers; index++)
     {
         let randomPlayer = array[Math.floor(Math.random() * array.length)];
         let selectedId = randomPlayer.device_id;
-        const {UpdateRole} = require('../../script.js');
-        UpdateRole(selectedId);
+        await supabase.from("DeviceInformation").update({is_helper : true}).eq("device_id", selectedId);
     }
-
-    
 
     res.status(200).json(data, error);
 }

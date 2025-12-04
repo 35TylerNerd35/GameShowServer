@@ -219,6 +219,7 @@ supabase
   .on('postgres_changes', { event: 'DELETE', schema: 'public', table: voteTable }, HandleRecordDeleted)
   .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: voteTable }, HandleRecordUpdated)
   .on('postgres_changes', {event: 'DELETE', schema: 'public', table: deviceTable}, HandleDeviceDeleted)
+  .on('postgres_changes', {event: 'UPDATE', schema: 'public', table: deviceTable}, HandleDeviceUpdated)
   .subscribe()
 
 function HandleRecordInserted(payload) {
@@ -241,6 +242,16 @@ function HandleRecordDeleted(payload) {
 
     // Remove from document
     document.getElementById(oldLobby.option_name + "Label").parentNode.remove();
+}
+
+function HandleDeviceUpdated(payload) {
+    if (payload.new.device_id != device_id)
+        return;
+
+    if (!payload.new.is_helper)
+        return;
+
+    document.getElementById("Role").innerHTML = "Save them...";
 }
 
 function HandleDeviceDeleted(payload) {
