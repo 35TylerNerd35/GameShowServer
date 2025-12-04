@@ -25,6 +25,7 @@ let lobbyCode;
 let device_id;
 let checkedOption;
 let timestamp = Math.floor(new Date().getTime() / 1000);
+let is_helper = false;
 
 async function Setup() {
     
@@ -252,6 +253,7 @@ function HandleDeviceUpdated(payload) {
         return;
 
     document.getElementById("Role").innerHTML = "Save them...";
+    is_helper = true;
 }
 
 function HandleDeviceDeleted(payload) {
