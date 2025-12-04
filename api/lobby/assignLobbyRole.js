@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     for (let index = 0; index < numHelpers; index++)
     {
-        let randomPlayer = array[Math.floor(Math.random() * array.length)];
+        let randomPlayer = data[Math.floor(Math.random() * data.length)];
         let selectedId = randomPlayer.device_id;
         await supabase.from("DeviceInformation").update({is_helper : true}).eq("device_id", selectedId);
     }
