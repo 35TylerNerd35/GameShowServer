@@ -162,6 +162,14 @@ function CreateButton(buttonInformation) {
     }
 }
 
+function UpdateRole(selectedID)
+{
+    if (selectedID != device_id)
+        return;
+
+    document.getElementById("Role").innerHTML = "Save them...";
+}
+
 async function UpdateVoteDisplays() {
     for (const option of poll_options) {
         const optionLabel = document.getElementById(option.option_name + "Label");
