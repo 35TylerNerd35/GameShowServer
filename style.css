@@ -164,3 +164,11 @@ h1 {
   font-family: Margin;
   font-size: 3vw;
 }
+
+#minimapImg:hover {
+  width: 750vh;
+  height: 750vh;
+
+  position: absolute;
+  z-index: 99;
+}
