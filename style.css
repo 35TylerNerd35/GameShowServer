@@ -149,6 +149,7 @@ h1 {
   padding: 1em;
 }
 #door-button {
+  font-family: RetailBlack !important;
   font-size: 1vw !important;
   text-align: center;
 }
