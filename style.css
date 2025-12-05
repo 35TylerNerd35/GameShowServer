@@ -171,14 +171,14 @@ h1 {
 }
 
 #minimapImg:hover {
-  width: 80vh;
-  height: 80vh;
+  width: 60vh;
+  height: 60vh;
 
   z-index: 99 !important;
   position: absolute;
-  bottom: 1vh !important;
+  /* bottom: 1vh !important;
   text-align: center center !important;
   justify-self: center center !important;
 
-  object-position: 50% 50% !important;
+  object-position: 50% 50% !important; */
 }
