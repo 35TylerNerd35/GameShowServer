@@ -170,7 +170,7 @@ h1 {
   height: 40vh;
 }
 
-#minimapImg:hover {
+.no-touch #minimapImg:hover {
   width: 60vh;
   height: 60vh;
 

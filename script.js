@@ -146,6 +146,10 @@ function HandleDeviceUpdated(payload) {
 Setup();
 StartTimer();
 
+if (!("ontouchstart" in document.documentElement)) {
+    document.getElementById("minimapImg").className += " no-touch";
+}
+
 
 window.addEventListener('beforeunload', () => {
     LeaveLobby();
