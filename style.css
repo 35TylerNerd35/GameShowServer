@@ -170,7 +170,7 @@ h1 {
   height: 40vh;
 }
 
-@media (min-width: 1025px){
+@media (hover: hover) {
   #minimapImg:hover {
     width: 60vh;
     height: 60vh;
