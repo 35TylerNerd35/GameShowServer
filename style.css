@@ -156,6 +156,8 @@ h1 {
 
 #timer {
   padding-top: 2em;
+  padding-left: 2em;
   color: #ffffff;
   font-family: Margin;
+  font-size: 3vw;
 }
