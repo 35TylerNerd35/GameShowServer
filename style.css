@@ -176,8 +176,9 @@ h1 {
 
   z-index: 99 !important;
   position: absolute;
-  top: 5vh !important;
-  text-align: center;
+  bottom: 5vh !important;
+  text-align: center !important;
+  justify-self: center !important;
 
-  /* object-position: 50% 50%; */
+  object-position: 50% 50% !important;
 }
