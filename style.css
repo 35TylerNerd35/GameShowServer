@@ -171,4 +171,6 @@ h1 {
 
   position: absolute;
   z-index: 99;
+
+  object-position: 50% 50%;
 }
