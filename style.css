@@ -161,3 +161,7 @@ h1 {
   font-family: Margin;
   font-size: 3vw;
 }
+
+#imageBox {
+  border-radius: 2em;
+}
