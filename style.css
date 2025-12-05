@@ -64,13 +64,6 @@ h1 {
   background-color: #ffffff;
 }
 
-#JoinInformation {
-  visibility: visible;
-}
-#Lobby {
-  visibility: collapse;
-}
-
 #leaveLobby {
   position: fixed;
   left: 40%;
