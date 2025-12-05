@@ -2,6 +2,14 @@
   font-family: RetailBlack;
   src: url(fonts/RetailBlack.otf);
 }
+@font-face {
+  font-family: Margin;
+  src: url(fonts/Margin.otf);
+}
+@font-face {
+  font-family: RetroFunk;
+  src: url(fonts/Retrofunk.otf);
+}
 
 html {
   background-color: #222;
@@ -41,6 +49,7 @@ h1 {
 #lobbyCode {
   color: #222;
   font-size: 3.5vw;
+  font-family: Margin;
   background-color: #e85733;
   text-align: center;
   width: 25rem;
@@ -52,6 +61,7 @@ h1 {
 #joinLobby,
 #leaveLobby {
   font-size: 2vw;
+  font-family: RetroFunk;
   padding: 0.5rem 2rem;
   background-color: #e85733;
   border: none;
