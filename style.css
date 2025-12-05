@@ -165,11 +165,17 @@ h1 {
   font-size: 3vw;
 }
 
+#minimapImg {
+  width: 40vh;
+  height: 40vh;
+}
+
 #minimapImg:hover {
-  width: 100vh;
-  height: 100vh;
+  width: 80vh;
+  height: 80vh;
 
   z-index: 99;
+  position: absolute;
 
   /* object-position: 50% 50%; */
 }
