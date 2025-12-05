@@ -170,7 +170,7 @@ h1 {
   height: 40vh;
 }
 
-.no-touch #minimapImg:hover {
+#minimapImg:hover {
   width: 60vh;
   height: 60vh;
 
@@ -180,4 +180,9 @@ h1 {
   top: -10vh !important;
 
   transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#minimapImg:focus {
+  width: 40vh;
+  height: 40vh;
 }
