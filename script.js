@@ -102,6 +102,7 @@ async function OnToggleButtonClicked(toggleId)
     }
 
     timestamp = currentUnixTimestamp;
+    time = 30;
     StartTimer();
     await supabase.from(toggleTable).update({toggle_id : toggleId, timestamp : new Date()}).eq('device_id', device_id)
 }
