@@ -170,19 +170,16 @@ h1 {
   height: 40vh;
 }
 
-#minimapImg:hover {
-  width: 60vh;
-  height: 60vh;
+@media (min-width: 1025px){
+  #minimapImg:hover {
+    width: 60vh;
+    height: 60vh;
 
-  z-index: 99 !important;
-  position: absolute;
-  background-color: #222;
-  top: -10vh !important;
+    z-index: 99 !important;
+    position: absolute;
+    background-color: #222;
+    top: -10vh !important;
 
-  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-#minimapImg:focus {
-  width: 40vh;
-  height: 40vh;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
 }
