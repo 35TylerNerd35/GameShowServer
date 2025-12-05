@@ -77,20 +77,28 @@ async function SetupButtons() {
     }
 
     // Grab doors
-    let doorParent = document.getElementById("Door0")
-    let children = doorParent.children;
-    let doorParent1 = document.getElementById("Door1")
-    let children1 = doorParent1.children;
+    // let doorParent = document.getElementById("Door0")
+    // let children = doorParent.children;
+    // let doorParent1 = document.getElementById("Door1")
+    // let children1 = doorParent1.children;
 
-    // Assign button click for doors
-    for (let i = 0; i < children.length; i++) {
-        let id = children[i].getAttribute('code');
-        children[i].onclick = async () => await OnToggleButtonClicked(id);
-    }
-    // Assign button click for doors
-    for (let i = 0; i < children1.length; i++) {
-        let id = children1[i].getAttribute('code');
-        children1[i].onclick = async () => await OnToggleButtonClicked(id);
+    // // Assign button click for doors
+    // for (let i = 0; i < children.length; i++) {
+    //     let id = children[i].getAttribute('code');
+    //     children[i].onclick = async () => await OnToggleButtonClicked(id);
+    // }
+    // // Assign button click for doors
+    // for (let i = 0; i < children1.length; i++) {
+    //     let id = children1[i].getAttribute('code');
+    //     children1[i].onclick = async () => await OnToggleButtonClicked(id);
+    // }
+    var elements = document.getElementsByClassName("DoorCode");
+    for(var i = 0; i < elements.length; i++) {
+        let doorCode = elements[i].getAttribute('code)');
+
+        elements[i].setAttribute("id", "door-button");
+        elements[i].innerHTML = doorCode;
+        elements[i].onclick = async () => await OnToggleButtonClicked(doorCode);
     }
 
     // Grab database
