@@ -1,4 +1,5 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
 
 // Connect to supabase
 const SUPABASE_URL = 'https://izghwhppfuumvzjehfrr.supabase.co'
@@ -28,8 +29,12 @@ let timestamp = Math.floor(new Date().getTime() / 1000);
 let is_helper = false;
 
 async function Setup() {
+    window.alert("Setup() running...");
+    window.alert("joinLobbyBtn =", joinLobbyBtn);
+
     
     joinLobbyBtn.onclick = async () => {
+        window.alert("Join Button Clicked");
 
         // Attempt to find lobby
         lobbyCode = lobbyCodeInpt.value;
