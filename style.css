@@ -81,3 +81,54 @@ h1 {
   bottom: 0vh;
   transform: translateX(-50%) rotate(-1deg);
 }
+
+/* MOBILE — screens smaller than 600px */
+@media (max-width: 600px) {
+
+  h1 {
+    font-size: 12vw;               /* larger on mobile but scales better */
+    margin-top: 3vh;
+    margin-bottom: 4vh;
+  }
+
+  #lobbyWrapper {
+    transform: rotate(2deg);
+  }
+
+  #lobbyCode {
+    font-size: 6vw;                /* more legible on mobile */
+    width: 80vw;                   /* scales with screen, never overflows */
+    max-width: 22rem;              /* prevents it from getting too big */
+  }
+
+  #joinLobby {
+    font-size: 5vw;
+    padding: 0.8rem 1.5rem;
+  }
+
+  /* Make borders thinner so they don't eat half the screen */
+  #border-top,
+  #border-bottom {
+    height: 8vh;
+    width: 250vw;                  /* extra width prevents visible gaps */
+  }
+
+  #border-top {
+    top: -5vh;
+  }
+
+  #border-bottom {
+    bottom: -5vh;
+  }
+}
+
+/* ULTRA SMALL phones (iPhone SE, old Android) */
+@media (max-width: 380px) {
+  #lobbyCode {
+    font-size: 7vw;
+  }
+
+  #joinLobby {
+    font-size: 6vw;
+  }
+}
