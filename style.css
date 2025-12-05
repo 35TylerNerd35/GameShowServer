@@ -176,6 +176,7 @@ h1 {
 
   z-index: 99 !important;
   position: absolute;
+  background-color: #222;
   /* bottom: 1vh !important;
   text-align: center center !important;
   justify-self: center center !important;
