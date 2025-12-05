@@ -178,4 +178,6 @@ h1 {
   position: absolute;
   background-color: #222;
   top: -10vh !important;
+
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
