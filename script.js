@@ -95,6 +95,7 @@ async function SetupButtons() {
     var elements = document.getElementsByClassName("DoorCode");
     for(var i = 0; i < elements.length; i++) {
         let doorCode = elements[i].getAttribute('code)');
+        window.alert(doorCode);
 
         elements[i].setAttribute("id", "door-button");
         elements[i].innerHTML = doorCode;
