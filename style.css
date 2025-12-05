@@ -57,11 +57,13 @@ h1 {
   border: none;
 }
 
+#door-botton:focus,
 #lobbyCode:focus {
   background-color: #ce5334 !important;
 }
 
 /* Button styling */
+#door-button,
 #joinLobby,
 #leaveLobby {
   font-size: 2vw;
@@ -81,6 +83,7 @@ h1 {
   font-size: 3rem !important;
 }
 
+#door-button:hover,
 #leaveLobby:hover,
 #joinLobby:hover {
   background-color: #aa432a;
@@ -145,11 +148,8 @@ h1 {
   row-gap: 1em;
   padding: 1em;
 }
-.buttonGrid button {
-  background-color: #f1f1f1;
-  border: 1px solid black;
-  padding: .1em;
-  font-size: .1em;
+#door-button {
+  font-size: 1vw !important;
   text-align: center;
 }
 
