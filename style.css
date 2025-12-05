@@ -42,10 +42,9 @@ h1 {
   border: none;
 }
 
-/* Button styling (optional) */
+/* Button styling */
 #joinLobby,
 #leaveLobby {
-  font-size: 2vw;
   padding: 0.5rem 2rem;
   background-color: #e85733;
   border: none;
@@ -53,6 +52,9 @@ h1 {
   color: #222;
   cursor: pointer;
   transition: 0.2s;
+  width: 20rem;
+  height: 4rem;
+  font-size: 3rem;
 }
 
 #leaveLobby:hover,
