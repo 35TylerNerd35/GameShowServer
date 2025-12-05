@@ -166,11 +166,10 @@ h1 {
 }
 
 #minimapImg:hover {
-  width: 750vh;
-  height: 750vh;
+  width: 500vh;
+  height: 500vh;
 
-  position: absolute;
   z-index: 99;
 
-  object-position: 50% 50%;
+  /* object-position: 50% 50%; */
 }
