@@ -29,12 +29,8 @@ let timestamp = Math.floor(new Date().getTime() / 1000);
 let is_helper = false;
 
 async function Setup() {
-    window.alert("Setup() running...");
-    window.alert("joinLobbyBtn =", joinLobbyBtn);
-
     
     joinLobbyBtn.onclick = async () => {
-        window.alert("Join Button Clicked");
 
         // Attempt to find lobby
         lobbyCode = lobbyCodeInpt.value;
