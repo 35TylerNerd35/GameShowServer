@@ -1,10 +1,83 @@
-body {
-  font-family: sans-serif;
-  text-align: center;
-  margin: 40px;
+html {
+  background-color: #222;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* prevents the black bars from causing horizontal scroll */
 }
-button {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
+
+h1 {
+  font-size: 7vw;
+  text-shadow: 0 .1em 0 black;
+  color: orangered;
+  text-align: center;
+  -webkit-text-stroke: .05em black;
+  margin-top: 2vh;
+  margin-bottom: 5vh;
+}
+
+/* Centering section */
+#JoinInformation {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Rotated input with straight text */
+#lobbyWrapper {
+  transform: rotate(2deg);
+}
+
+#lobbyCode {
+  transform: rotate(-2deg);
+  color: #222;
+  font-size: 4vw;
+  background-color: orangered;
+  text-align: center;
+  width: 20rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+/* Button styling (optional) */
+#joinLobby {
+  font-size: 2vw;
+  padding: 0.5rem 2rem;
+  background-color: orangered;
+  border: none;
+  border-radius: 0.4rem;
+  color: #222;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#joinLobby:hover {
+  background-color: #ff5722;
+}
+
+
+
+
+#border-top,
+#border-bottom {
+  position: fixed;
+  left: 50%;
+  width: 200vw;
+  height: 12vh;
+  background-color: black;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+/* different rotations top vs bottom */
+#border-top {
+  top: 0vh;
+  transform: translateX(-50%) rotate(1deg);
+}
+
+#border-bottom {
+  bottom: 0vh;
+  transform: translateX(-50%) rotate(-1deg);
 }
