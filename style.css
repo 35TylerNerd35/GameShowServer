@@ -57,7 +57,6 @@ h1 {
   border: none;
 }
 
-#door-botton:focus,
 #lobbyCode:focus {
   background-color: #ce5334 !important;
 }
@@ -91,6 +90,10 @@ h1 {
 #leaveLobby:focus,
 #joinLobby:focus {
   background-color: #ffffff;
+}
+
+#door-button:focus {
+  background-color: #7c3624;
 }
 
 #leaveLobby {
