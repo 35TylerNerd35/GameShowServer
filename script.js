@@ -183,10 +183,10 @@ function StartTimer()
         
     // Output the result in an element with id="demo"
     document.getElementById("timer").innerHTML = time + "seconds remaining";
-    seconds -= 1;
+    time -= 1;
         
     // If the count down is over, write some text 
-    if (seconds < 0) {
+    if (time < 0) {
         clearInterval(x);
         document.getElementById("timer").innerHTML = "Toggle Available!";
     }
