@@ -16,6 +16,7 @@ h1 {
 }
 
 /* Centering section */
+#Lobby,
 #JoinInformation {
   width: 100%;
   display: flex;
@@ -42,7 +43,8 @@ h1 {
 }
 
 /* Button styling (optional) */
-#joinLobby {
+#joinLobby,
+#leaveLobby {
   font-size: 2vw;
   padding: 0.5rem 2rem;
   background-color: #e85733;
@@ -53,12 +55,30 @@ h1 {
   transition: 0.2s;
 }
 
+#leaveLobby:hover,
 #joinLobby:hover {
-  background-color: #e85733;
+  background-color: #aa432a;
+}
+#leaveLobby:focus,
+#joinLobby:focus {
+  background-color: #ffffff;
 }
 
+#JoinInformation {
+  visibility: collapse;
+}
+#Lobby {
+  visibility: visible;
+}
 
-
+#leaveLobby {
+  position: fixed;
+  left: 40%;
+  right: 40%;
+  bottom: 10vh;
+  border: .2em solid black;
+  border-radius: .4rem;
+}
 
 #border-top,
 #border-bottom {

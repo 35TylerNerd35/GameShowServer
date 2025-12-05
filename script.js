@@ -60,7 +60,7 @@ async function Setup() {
 
         // Hide join info
         document.getElementById("JoinInformation").visibility = "collapse";
-        document.getElementById("Doors").style.visibility = "visible";
+        document.getElementById("Lobby").style.visibility = "visible";
 
         document.getElementById("leaveLobby").onclick = () => {location.reload(true); return false;}
         
