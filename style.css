@@ -159,7 +159,7 @@ h1 {
 
 #timer {
   padding-top: 2.5vh;
-  padding-left: 2.5vw;
+  /* padding-left: 2.5vw; */
   color: #ffffff;
   font-family: Margin;
   font-size: 3vw;
