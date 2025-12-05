@@ -174,8 +174,10 @@ h1 {
   width: 80vh;
   height: 80vh;
 
-  z-index: 99;
+  z-index: 99 !important;
   position: absolute;
+  top: 5vh !important;
+  text-align: center;
 
   /* object-position: 50% 50%; */
 }
