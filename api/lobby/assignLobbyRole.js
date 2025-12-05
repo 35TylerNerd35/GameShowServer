@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     {
         let randomPlayer = data[Math.floor(Math.random() * data.length)];
         let selectedId = randomPlayer.device_id;
-        await supabase.from("DeviceInformation").update({is_helper : true}).eq("device_id", selectedId);
+        await supabase.from("DeviceInformation").update({team_id : 1, is_helper : true}).eq("device_id", selectedId);
     }
 
     res.status(200).json(data, error);

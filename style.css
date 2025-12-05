@@ -3,6 +3,7 @@ html {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* prevents the black bars from causing horizontal scroll */
+  font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -80,10 +81,10 @@ h1 {
 }
 
 #JoinInformation {
-  visibility: visible;
+  visibility: collapse;
 }
 #Lobby {
-  visibility: collapse;
+  visibility: visible;
 }
 
 

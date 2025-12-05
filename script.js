@@ -250,11 +250,18 @@ function HandleDeviceUpdated(payload) {
     if (payload.new.device_id != device_id)
         return;
 
-    if (!payload.new.is_helper)
+    if (payload.new.team_id != 1)
         return;
 
-    document.getElementById("Role").innerHTML = "Save them...";
-    is_helper = true;
+    if (payload.new.is_helper)
+    {
+        document.getElementById("Title").innerHTML = "Don't let them out!";
+        is_helper = true;
+    }
+    else
+    {
+        document.getElementById("Title").innerHTML = "Help them escape!";
+    }
 }
 
 function HandleDeviceDeleted(payload) {
