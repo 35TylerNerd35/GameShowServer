@@ -8,7 +8,7 @@ html {
 h1 {
   font-size: 7vw;
   text-shadow: 0 .1em 0 black;
-  color: orangered;
+  color: #e85733;
   text-align: center;
   -webkit-text-stroke: .05em black;
   margin-top: 2vh;
@@ -26,26 +26,26 @@ h1 {
 
 /* Rotated input with straight text */
 #lobbyWrapper {
-  transform: rotate(2deg);
+  transform: skewX(-10deg);   /* slants the sides */
+  display: inline-block;      /* important so the skew behaves correctly */
 }
 
+
 #lobbyCode {
-  transform: rotate(-2deg);
   color: #222;
   font-size: 4vw;
-  background-color: orangered;
+  background-color: #e85733;
   text-align: center;
   width: 20rem;
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 0.3rem;
 }
 
 /* Button styling (optional) */
 #joinLobby {
   font-size: 2vw;
   padding: 0.5rem 2rem;
-  background-color: orangered;
+  background-color: #e85733;
   border: none;
   border-radius: 0.4rem;
   color: #222;
@@ -54,7 +54,7 @@ h1 {
 }
 
 #joinLobby:hover {
-  background-color: #ff5722;
+  background-color: #e85733;
 }
 
 
@@ -80,59 +80,4 @@ h1 {
 #border-bottom {
   bottom: 0vh;
   transform: translateX(-50%) rotate(-1deg);
-}
-
-/* MOBILE — screens smaller than 600px */
-/* MOBILE FIX — reduce large rotated borders */
-@media (max-width: 600px) {
-  #border-top,
-  #border-bottom {
-    height: 5vh;       /* MUCH smaller */
-    width: 200vw;
-  }
-
-  #border-top {
-    top: -2vh;
-    transform: translateX(-50%) rotate(0.5deg);   /* less rotation */
-  }
-
-  #border-bottom {
-    bottom: -2vh;
-    transform: translateX(-50%) rotate(-0.5deg);  /* less rotation */
-  }
-
-  /* Title fixes */
-  h1 {
-    font-size: 10vw;
-    margin-top: 2vh;
-  }
-
-  /* Input fixes */
-  #lobbyWrapper {
-    transform: rotate(1deg); /* light tilt */
-  }
-
-  #lobbyCode {
-    transform: rotate(-1deg);
-    width: 75vw;     /* fits mobile screens */
-    font-size: 6vw;
-  }
-
-  /* Button fixes */
-  #joinLobby {
-    font-size: 5vw;
-    padding: 0.6rem 1.5rem;
-  }
-}
-
-
-/* ULTRA SMALL phones (iPhone SE, old Android) */
-@media (max-width: 380px) {
-  #lobbyCode {
-    font-size: 7vw;
-  }
-
-  #joinLobby {
-    font-size: 6vw;
-  }
 }

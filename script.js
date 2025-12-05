@@ -15,7 +15,7 @@ const optionsDiv = document.getElementById("options");
 const lobbyCodeInpt = document.getElementById("lobbyCode");
 const inPersonCheck = document.getElementById("isInPerson");
 const joinLobbyBtn = document.getElementById("joinLobby");
-document.getElementById("Doors").style.visibility = "hidden";
+// document.getElementById("Doors").style.visibility = "hidden";
 
 const poll_options = [{option_id : 0, created_at : new Date(), option_name : "Option 1", votes : 0}];
 let hasRegisteredDeviceID = false;
@@ -59,7 +59,7 @@ async function Setup() {
         hasRegisteredDeviceID = true;
 
         // Hide join info
-        document.getElementById("JoinInformation").innerHTML = "";
+        document.getElementById("JoinInformation").visibility = "collapse";
         document.getElementById("Doors").style.visibility = "visible";
 
         document.getElementById("leaveLobby").onclick = () => {location.reload(true); return false;}
