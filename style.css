@@ -21,10 +21,10 @@ html {
 
 h1 {
   font-size: 7vw;
-  text-shadow: 0 .1em 0 black;
+  text-shadow: 0.1rem 0 black;
   color: #e85733;
   text-align: center;
-  -webkit-text-stroke: .05em black;
+  -webkit-text-stroke: .05rem black;
   margin-top: 2vh;
   margin-bottom: 5vh;
 }
@@ -36,7 +36,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1vw;
 }
 
 /* Rotated input with straight text */
@@ -52,8 +52,8 @@ h1 {
   font-family: Margin;
   background-color: #e85733;
   text-align: center;
-  width: 25rem;
-  padding: 0.5rem 1rem;
+  width: 25vw;
+  padding: 0.5vw 1vw;
   border: none;
 }
 
@@ -65,21 +65,21 @@ h1 {
 #door-button,
 #joinLobby,
 #leaveLobby {
-  font-size: 2vw;
+  font-size: 2vh;
   font-family: RetroFunk;
-  padding: 0.5rem 2rem;
+  padding: 0.5vh 2vh;
   background-color: #e85733;
   border: none;
-  border-radius: 0.4rem;
+  border-radius: 0.4vh;
   color: #222;
   cursor: pointer;
   transition: 0.2s;
 }
 
 #joinLobby {
-  width: 20rem !important;
-  height: 4rem !important;
-  font-size: 3rem !important;
+  width: 20vh !important;
+  height: 4vh !important;
+  font-size: 3vh !important;
 }
 
 #door-button:hover,
@@ -98,8 +98,8 @@ h1 {
 
 #leaveLobby {
   position: fixed;
-  left: 40%;
-  right: 40%;
+  left: 40vw;
+  right: 40vw;
   bottom: 10vh;
   border: .2em solid black;
   border-radius: .4rem;
