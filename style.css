@@ -65,10 +65,10 @@ h1 {
 }
 
 #JoinInformation {
-  visibility: collapse;
+  visibility: visible;
 }
 #Lobby {
-  visibility: visible;
+  visibility: collapse;
 }
 
 #leaveLobby {
