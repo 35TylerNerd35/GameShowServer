@@ -92,7 +92,7 @@ h1 {
   position: fixed;
   left: 50%;
   width: 200vw;
-  height: 12vh;
+  height: 16vh;
   background-color: black;
   transform: translateX(-50%);
   z-index: -1;
@@ -100,11 +100,11 @@ h1 {
 
 /* different rotations top vs bottom */
 #border-top {
-  top: 0vh;
+  top: -2.5vh;
   transform: translateX(-50%) rotate(1deg);
 }
 
 #border-bottom {
-  bottom: 0vh;
+  bottom: -2.5vh;
   transform: translateX(-50%) rotate(-1deg);
 }
