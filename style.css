@@ -128,3 +128,31 @@ h1 {
   bottom: -2.5vh;
   transform: translateX(-50%) rotate(-1deg);
 }
+
+
+/* lobby information */
+#informationContainer {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  top: 25vh;
+}
+
+#buttonGrid {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  column-gap: 1em;
+  row-gap: 1em;
+  padding: 1em;
+}
+.buttonGrid button {
+  background-color: #f1f1f1;
+  border: 1px solid black;
+  padding: .1em;
+  font-size: .1em;
+  text-align: center;
+}
+
+#timer {
+  padding-top: 2em;
+}
