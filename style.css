@@ -1,9 +1,14 @@
+@font-face {
+  font-family: RetailBlack;
+  src: url(fonts/RetailBlack.otf);
+}
+
 html {
   background-color: #222;
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* prevents the black bars from causing horizontal scroll */
-  font-family: 'Roboto', sans-serif;
+  font-family: RetailBlack;
 }
 
 h1 {
