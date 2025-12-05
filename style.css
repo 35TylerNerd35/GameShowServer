@@ -147,18 +147,18 @@ h1 {
 #buttonGrid {
   display: grid;
   grid-template-columns: auto auto auto auto;
-  column-gap: 1em;
-  row-gap: 1em;
-  padding: 1em;
+  column-gap: 1vw;
+  row-gap: 1vw;
+  padding: 1vw;
 }
 #door-button {
   font-family: RetailBlack !important;
-  font-size: 1vw !important;
+  font-size: 2vw !important;
   text-align: center;
 }
 
 #timer {
-  padding-top: 2.5vw;
+  padding-top: 2.5vh;
   padding-left: 2.5vw;
   color: #ffffff;
   font-family: Margin;
