@@ -102,7 +102,6 @@ async function OnToggleButtonClicked(toggleId)
     }
 
     timestamp = currentUnixTimestamp;
-    time = 30;
     StartTimer();
     await supabase.from(toggleTable).update({toggle_id : toggleId, timestamp : new Date()}).eq('device_id', device_id)
 }
@@ -176,9 +175,11 @@ function RandomInRange(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-let time = 30;
+
 function StartTimer()
 {
+    let time = 30;
+
     document.getElementById("timer").innerHTML = time + "seconds remaining";
 
     // Update the count down every 1 second
