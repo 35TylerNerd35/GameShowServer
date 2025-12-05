@@ -124,6 +124,24 @@ function HandleDeviceDeleted(payload) {
     return false;
 }
 
+function HandleDeviceUpdated(payload) {
+    if (payload.new.device_id != device_id)
+        return;
+
+    if (payload.new.team_id != 1)
+        return;
+
+    if (payload.new.is_helper)
+    {
+        document.getElementById("Title").innerHTML = "Help them escape!";
+        is_helper = true;
+    }
+    else
+    {
+        document.getElementById("Title").innerHTML = "Don't let them out!";
+    }
+}
+
 Setup();
 
 
