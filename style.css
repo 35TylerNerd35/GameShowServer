@@ -21,10 +21,10 @@ html {
 
 h1 {
   font-size: 7vw;
-  text-shadow: 0.5vh 0 black;
+  text-shadow: 0.2vw 0 black;
   color: #e85733;
   text-align: center;
-  -webkit-text-stroke: 1vh black;
+  -webkit-text-stroke: .5vw black;
   margin-top: 2vh;
   margin-bottom: 5vh;
 }
