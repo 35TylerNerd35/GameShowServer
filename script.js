@@ -84,12 +84,12 @@ async function SetupButtons() {
 
     // Assign button click for doors
     for (let i = 0; i < children.length; i++) {
-        let id = children[i].getAttribute('id');
+        let id = children[i].getAttribute('code');
         children[i].onclick = async () => await OnToggleButtonClicked(id);
     }
     // Assign button click for doors
     for (let i = 0; i < children1.length; i++) {
-        let id = children1[i].getAttribute('id');
+        let id = children1[i].getAttribute('code');
         children1[i].onclick = async () => await OnToggleButtonClicked(id);
     }
 

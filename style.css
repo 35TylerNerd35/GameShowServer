@@ -28,8 +28,8 @@ h1 {
 
 /* Rotated input with straight text */
 #lobbyWrapper {
-  transform: skewX(-10deg);   /* slants the sides */
-  display: inline-block;      /* important so the skew behaves correctly */
+  transform: skewX(-10deg);
+  display: inline-block;   
 }
 
 
