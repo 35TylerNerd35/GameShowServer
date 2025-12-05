@@ -178,17 +178,20 @@ function RandomInRange(min, max) {
 let time = 30;
 function StartTimer()
 {
+    document.getElementById("timer").innerHTML = time + "seconds remaining";
+
     // Update the count down every 1 second
     var x = setInterval(function() {
         
-    // Output the result in an element with id="demo"
-    document.getElementById("timer").innerHTML = time + "seconds remaining";
+    // Decrease time by 1 and display count
     time -= 1;
+    document.getElementById("timer").innerHTML = time + "seconds remaining";
         
-    // If the count down is over, write some text 
+    // Change text when count is over
     if (time < 0) {
         clearInterval(x);
         document.getElementById("timer").innerHTML = "Toggle Available!";
+        time = 30;
     }
     }, 1000);
 }
