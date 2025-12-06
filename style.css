@@ -193,6 +193,7 @@ h1 {
  bottom: 0;
  right: 0;
  text-align: center;
+ visibility: collapse;
 } 
 
 #CoverInner {
