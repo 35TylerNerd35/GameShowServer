@@ -196,3 +196,7 @@ function StartTimer()
     }
     }, 1000);
 }
+
+$(window).on('orientationchange', function () {
+    alert('orientationchange or resize');
+});
