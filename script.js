@@ -200,12 +200,12 @@ function StartTimer()
 const query = matchMedia("screen and (orientation:portrait)");
 query.onchange = e => {
     if (e.matches) {
-        document.getElementById("PortraitCover").visibility = "visible";
+        document.getElementById("PortraitCover").style.visibility = "visible";
     } else {
-        document.getElementById("PortraitCover").visibility = "collapse";
+        document.getElementById("PortraitCover").style.visibility = "collapse";
     }
 }
 
 if (query.matches) {
-    document.getElementById("PortraitCover").visibility = "visible";
+    document.getElementById("PortraitCover").style.visibility = "visible";
 }
