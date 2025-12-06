@@ -202,7 +202,7 @@ query.onchange = e => {
     if (e.matches) {
         document.getElementById("PortraitCover").visibility = "visible";
     } else {
-        document.getElementById("PortraitCover").visibility = "visible";
+        document.getElementById("PortraitCover").visibility = "collapse";
     }
 }
 
