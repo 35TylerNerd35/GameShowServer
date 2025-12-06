@@ -183,3 +183,15 @@ h1 {
     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 }
+
+#PortraitCover {
+  position: absolute;
+  display: block;
+  background-color: #222;
+  height: 200vh;
+  width: 200vw;
+
+  visibility: "collapse";
+
+  text-align: center;
+}

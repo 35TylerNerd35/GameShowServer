@@ -200,9 +200,12 @@ function StartTimer()
 const query = matchMedia("screen and (orientation:portrait)");
 query.onchange = e => {
     if (e.matches) {
-        window.alert ("portrait");
+        document.getElementById("PortraitCover").visibility = "visible";
     } else {
-        window.alert ("landscape", e);
+        document.getElementById("PortraitCover").visibility = "visible";
     }
-  window.alert( 'orientation change', query.matches ? 'portrait' : 'landscape' );
+}
+
+if (query.matches) {
+    document.getElementById("PortraitCover").visibility = "visible";
 }
