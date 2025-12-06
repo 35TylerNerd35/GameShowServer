@@ -199,5 +199,5 @@ function StartTimer()
 
 const query = matchMedia("screen and (orientation:portrait)");
 query.onchange = e => {
-  console.log( 'orientation change', query.matches ? 'portrait' : 'landscape' );
+  window.alert( 'orientation change', query.matches ? 'portrait' : 'landscape' );
 }
