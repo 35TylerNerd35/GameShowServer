@@ -197,6 +197,7 @@ function StartTimer()
     }, 1000);
 }
 
-$(window).on('orientationchange', function () {
-    alert('orientationchange or resize');
-});
+const query = matchMedia("screen and (orientation:portrait)");
+query.onchange = e => {
+  console.log( 'orientation change', query.matches ? 'portrait' : 'landscape' );
+}
