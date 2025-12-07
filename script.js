@@ -37,7 +37,7 @@ async function Setup() {
             return;
         }
 
-        const { host, hostError } = await supabase.from("DeviceInformation").select('device_id').eq('lobby_id', lobbyCode).eq("is_host", true);
+        const { host, hostError } = await supabase.from("DeviceInformation").select('*').eq('lobby_id', lobbyCode).eq("is_host", true);
         const jsonString = JSON.stringify(host);
         const jsonString2 = JSON.stringify(hostError);
         window.alert(jsonString);
