@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
     // Grab connected devices
     const { data, error } = await supabase.from("DeviceInformation").select('*').eq('lobby_id', lobbyCode).eq("is_host", false);
-    const { host } = await supabase.from("DeviceInformation").select('device_id').eq('lobby_id', lobbyCode).eq("is_host", true);
+    const { host, hostError } = await supabase.from("DeviceInformation").select('device_id').eq('lobby_id', lobbyCode).eq("is_host", true);
 
     // Grab number of helpers
     let num = data.length;
@@ -29,5 +29,5 @@ export default async function handler(req, res) {
 
     await supabase.from("DeviceInformation").update({team_id : 1}).eq("device_id", host[0].device_id);
 
-    res.status(200).json(data, error);
+    res.status(200).json(host, hostError);
 }
