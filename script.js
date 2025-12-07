@@ -117,7 +117,7 @@ function HandleDeviceDeleted(payload) {
         return;
     }
 
-    if (!payload.old.is_host) {
+    if (!payload.old.is_host && payload.old.device_id != device_id) {
         return;
     }
 
@@ -129,7 +129,7 @@ function HandleDeviceUpdated(payload) {
 
     if (payload.new.team_id != 1)
         return;
-    
+
     if (payload.new.is_host && !is_helper)
     {
         document.getElementById("Title").innerHTML = "Don't let them out!";
