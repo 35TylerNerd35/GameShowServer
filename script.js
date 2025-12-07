@@ -37,10 +37,6 @@ async function Setup() {
             return;
         }
 
-        const { data : host, error : hostError} = await supabase.from("DeviceInformation").select('*').eq('lobby_id', lobbyCode).eq("is_host", true);
-        window.alert(host[0].device_id);
-        window.alert(hostError);
-
         // Grab registered device IDs
         const { data : deviceData, error : deviceError } = await supabase.from(deviceTable).select('device_id');
         const devices = [];
@@ -130,7 +126,7 @@ function HandleDeviceDeleted(payload) {
 }
 
 function HandleDeviceUpdated(payload) {
-    if (payload.new.device_id != device_id)
+    if (payload.new.device_id != device_id && payload.new.is_host == false)
         return;
 
     if (payload.new.team_id != 1)
