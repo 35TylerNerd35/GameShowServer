@@ -45,8 +45,15 @@ async function Setup() {
         }
 
         const { data: host } = await supabase.from("DeviceInformation").select('*').eq('lobby_id', lobbyCode).eq("is_host", true);
-        document.getElementById("Title").innerHTML = "Waiting...";
-        HandleDeviceDeleted(host);
+        if (host[0].team_id == 1)
+        {
+            document.getElementById("Title").innerHTML = "Don't let them out!";
+        }
+        else
+        {
+            document.getElementById("Title").innerHTML = "Waiting...";
+        }
+    
 
         // Set new ID
         device_id = 0;
