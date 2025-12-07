@@ -37,6 +37,10 @@ async function Setup() {
             return;
         }
 
+        const { host, hostError } = await supabase.from("DeviceInformation").select('device_id').eq('lobby_id', lobbyCode).eq("is_host", true);
+        window.alert(host);
+        window.alert(hostError);
+
         // Grab registered device IDs
         const { data : deviceData, error : deviceError } = await supabase.from(deviceTable).select('device_id');
         const devices = [];
