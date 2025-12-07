@@ -44,6 +44,10 @@ async function Setup() {
             devices.push(device.device_id);
         }
 
+        const { data: host } = await supabase.from("DeviceInformation").select('*').eq('lobby_id', lobbyCode).eq("is_host", true);
+        document.getElementById("Title").innerHTML = "Waiting...";
+        HandleDeviceDeleted(host);
+
         // Set new ID
         device_id = 0;
         while (devices.includes(device_id) || device_id == 0) {
