@@ -168,6 +168,7 @@ h1 {
 #minimapImg {
   width: 40vh;
   height: 40vh;
+  transition: all 0.2;
 }
 
 @media (hover: hover) {
@@ -180,7 +181,7 @@ h1 {
     background-color: #222;
     top: -10vh !important;
 
-    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 }
 
